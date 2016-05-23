@@ -1,0 +1,651 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Svn," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Mac下安装SVN服务器 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Mac下安装SVN服务器
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-10-23
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/10/23/Mac下安装SVN服务器/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/10/23/Mac下安装SVN服务器/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h2 id="安装svnserver">安装svnserver</h2><p>Mac自带svnserver, 输入svnserve –version</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">svnserve, <span class="built_in">version</span> <span class="number">1.7</span><span class="number">.10</span> (r1485443)</span><br><span class="line">   compiled Jan <span class="number">15</span> <span class="number">2014</span>, <span class="number">11</span>:<span class="number">22</span>:<span class="number">16</span></span><br><span class="line"></span><br><span class="line">Copyright (C) <span class="number">2013</span> The Apache Software Foundation.</span><br><span class="line">This software consists <span class="operator">of</span> contributions made <span class="keyword">by</span> many people; see <span class="operator">the</span> NOTICE</span><br><span class="line"><span class="built_in">file</span> <span class="keyword">for</span> more information.</span><br><span class="line">Subversion is <span class="built_in">open</span> source software, see <span class="keyword">http</span>://subversion.apache.org/</span><br><span class="line"></span><br><span class="line">The following repository back-<span class="function"><span class="keyword">end</span> (<span class="title">FS</span>) <span class="title">modules</span> <span class="title">are</span> <span class="title">available</span>:</span></span><br><span class="line"></span><br><span class="line">* fs_fs : Module <span class="keyword">for</span> working <span class="operator">with</span> <span class="operator">a</span> plain <span class="built_in">file</span> (FSFS) repository.</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="创建仓库">创建仓库</h2><ol>
+<li><p>创建目录</p>
+<ul>
+<li>sudo mkdir -p /data/svn/repositories/local</li>
+</ul>
+</li>
+<li><p>创建仓库</p>
+<ul>
+<li>sudo svnadmin create /data/svn/repositories/local</li>
+</ul>
+</li>
+</ol>
+<p>查看: <code>ls -al /data/svn/repositories/local</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">total <span class="number">16</span></span><br><span class="line">drwxr-xr-x   <span class="number">8</span> root  wheel  <span class="number">272</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> .</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> root  wheel  <span class="number">102</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">18</span> ..</span><br><span class="line">-rw-r--r--   <span class="number">1</span> root  wheel  <span class="number">229</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> README.txt</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> root  wheel  <span class="number">170</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> conf</span><br><span class="line">drwxr-sr-x  <span class="number">15</span> root  wheel  <span class="number">510</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> db</span><br><span class="line">-r--r--r--   <span class="number">1</span> root  wheel    <span class="number">2</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> format</span><br><span class="line">drwxr-xr-x  <span class="number">11</span> root  wheel  <span class="number">374</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> hooks</span><br><span class="line">drwxr-xr-x   <span class="number">4</span> root  wheel  <span class="number">136</span> <span class="number">10</span> <span class="number">23</span> <span class="number">17</span>:<span class="number">38</span> locks</span><br></pre></td></tr></table></figure>
+<h2 id="配置">配置</h2><h3 id="切换目录">切换目录</h3><p><code>cd /data/svn/repositories/local/conf</code></p>
+<h3 id="编辑svnserve-conf文件">编辑svnserve.conf文件</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">anon-<span class="keyword">access</span> = <span class="type">none</span></span><br><span class="line">auth-<span class="keyword">access</span> = <span class="built_in">write</span></span><br><span class="line">password-db = passwd</span><br><span class="line">authz-db = authz</span><br></pre></td></tr></table></figure>
+<h3 id="编辑passwd文件">编辑passwd文件</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在[users] 下添加用户及密码</span></span><br><span class="line"><span class="setting">arccode = <span class="value">arccode</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="编辑authz文件,_为用户分组,_并对组添加相应的权限">编辑authz文件, 为用户分组, 并对组添加相应的权限</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">admin</span> = arccode</span><br><span class="line">[/]</span><br><span class="line"><span class="variable">@admin</span> = rw</span><br><span class="line">[<span class="url">local:/]</span></span><br><span class="line"><span class="variable">@admin</span> = rw</span><br></pre></td></tr></table></figure>
+<h2 id="启动">启动</h2><p><code>sudo svnserve -d -r /data/svn/repositories --log-file=/var/log/svn.log</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 连接, svnserve默认端口<span class="number">3690</span></span></span><br><span class="line">telnet localhost <span class="number">3690</span></span><br></pre></td></tr></table></figure>
+<h2 id="导入项目">导入项目</h2><ol>
+<li>命令行</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">sudo svn import -m <span class="string">'init repo'</span> SvnTest/ svn:<span class="comment">//localhost/local</span></span><br><span class="line">Password:</span><br><span class="line">Sorry, try again.</span><br><span class="line">Password:</span><br><span class="line">Sorry, try again.</span><br><span class="line">Password:</span><br><span class="line">Authentication realm: &lt;svn:<span class="comment">//localhost:3690&gt; f70f2b4f-24f7-450c-9c79-99d29ed1e070</span></span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'root'</span>: </span><br><span class="line">Authentication realm: &lt;svn:<span class="comment">//localhost:3690&gt; f70f2b4f-24f7-450c-9c79-99d29ed1e070</span></span><br><span class="line">Username: arccode</span><br><span class="line">Password <span class="keyword">for</span> <span class="string">'arccode'</span>: </span><br><span class="line">Adding         SvnTest/<span class="class">.classpath</span></span><br><span class="line">Adding         SvnTest/WebRoot</span><br><span class="line">Adding         SvnTest/WebRoot/META-INF</span><br><span class="line">Adding         SvnTest/WebRoot/META-INF/MANIFEST<span class="class">.MF</span></span><br><span class="line">Adding         SvnTest/WebRoot/index<span class="class">.jsp</span></span><br><span class="line">Adding         SvnTest/WebRoot/WEB-INF</span><br><span class="line">Adding         SvnTest/WebRoot/WEB-INF/lib</span><br><span class="line">Adding         SvnTest/WebRoot/WEB-INF/web<span class="class">.xml</span></span><br><span class="line">Adding         SvnTest/WebRoot/WEB-INF/classes</span><br><span class="line">Adding         SvnTest/<span class="class">.mymetadata</span></span><br><span class="line">Adding         SvnTest/<span class="class">.project</span></span><br><span class="line">Adding         SvnTest/src</span><br><span class="line">Adding         SvnTest/<span class="class">.myeclipse</span></span><br><span class="line">Adding         SvnTest/<span class="class">.settings</span></span><br><span class="line">Adding         SvnTest/.settings/org<span class="class">.eclipse</span><span class="class">.jdt</span><span class="class">.core</span><span class="class">.prefs</span></span><br><span class="line">Adding         SvnTest/.settings/org<span class="class">.eclipse</span><span class="class">.wst</span><span class="class">.jsdt</span><span class="class">.ui</span><span class="class">.superType</span><span class="class">.name</span></span><br><span class="line">Adding         SvnTest/.settings/org<span class="class">.eclipse</span><span class="class">.wst</span><span class="class">.jsdt</span><span class="class">.ui</span><span class="class">.superType</span><span class="class">.container</span></span><br><span class="line">Adding         SvnTest/.settings/org<span class="class">.eclipse</span><span class="class">.wst</span><span class="class">.common</span><span class="class">.project</span><span class="class">.facet</span><span class="class">.core</span><span class="class">.xml</span></span><br><span class="line">Adding         SvnTest/.settings/<span class="class">.jsdtscope</span></span><br><span class="line">Adding         SvnTest/.settings/org<span class="class">.eclipse</span><span class="class">.wst</span><span class="class">.common</span><span class="class">.component</span></span><br><span class="line"></span><br><span class="line">Committed revision <span class="number">4</span>.</span><br></pre></td></tr></table></figure>
+<ol>
+<li>MyEclipse shareProject</li>
+</ol>
+<p>配置url为 svn://localhost/local</p>
+<h2 id="开机启动">开机启动</h2><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 编辑/etc/rc.<span class="keyword">local</span>(<span class="keyword">Mac</span>默认无此文件,需要手动创建), 添加</span><br><span class="line">svnserve -<span class="keyword">d</span> -r /data/svn/repositories --<span class="keyword">log</span>-<span class="keyword">file</span>=/<span class="keyword">var</span>/<span class="keyword">log</span>/svn.<span class="literal">log</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><p><a href="http://xiayong.blog.51cto.com/6292420/1088790" target="_blank" rel="external">Mac OS X上搭建本地SVN服务器</a></p>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Svn/"> #Svn </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/10/30/Log4j配置/">Log4j配置</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/09/30/Zookeeper实战一/">Zookeeper实战一</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2014/10/23/Mac下安装SVN服务器/"
+               data-title="Mac下安装SVN服务器" data-url="http://arccode.net/2014/10/23/Mac下安装SVN服务器/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装svnserver"><span class="nav-number">1.</span> <span class="nav-text">安装svnserver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建仓库"><span class="nav-number">2.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#切换目录"><span class="nav-number">3.1.</span> <span class="nav-text">切换目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑svnserve-conf文件"><span class="nav-number">3.2.</span> <span class="nav-text">编辑svnserve.conf文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑passwd文件"><span class="nav-number">3.3.</span> <span class="nav-text">编辑passwd文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑authz文件,_为用户分组,_并对组添加相应的权限"><span class="nav-number">3.4.</span> <span class="nav-text">编辑authz文件, 为用户分组, 并对组添加相应的权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">4.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入项目"><span class="nav-number">5.</span> <span class="nav-text">导入项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开机启动"><span class="nav-number">6.</span> <span class="nav-text">开机启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

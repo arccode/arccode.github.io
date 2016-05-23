@@ -1,0 +1,663 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Java,MyBatis," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> MyBatis-Generator最佳实践 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              MyBatis-Generator最佳实践
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-07
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Java/">Java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/07/MyBatis-Generator最佳实践/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/07/MyBatis-Generator最佳实践/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <p>最近使用MyBatis开发项目,为了快速开发,发现了一个可快速生成mapper类和mapper配置文件及Model的插件-<code>MyBatis-Generator</code>,总结下该插件的使用及最佳实践.</p>
+<h2 id="需求">需求</h2><ol>
+<li>为数据库中的表teacher生成Teacher.java, TeacherMapper.java, TeacherMapper.xml</li>
+<li>由于该插件生成的TeacherMapper.java, TeacherMapper.xml会带有example, 不希望生成example</li>
+<li>数据库中的字段写有注释, 希望注释能自动生成在Teacher.java中</li>
+</ol>
+<a id="more"></a>
+<h2 id="实现">实现</h2><h3 id="实现需求一">实现需求一</h3><p>1&gt; 建表-teacher</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`test`</span>.<span class="string">`teacher`</span> (</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">bigint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span> <span class="keyword">COMMENT</span> <span class="string">'主键id'</span>,</span><br><span class="line">	<span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">''</span> <span class="keyword">COMMENT</span> <span class="string">'名称'</span>,</span><br><span class="line">	<span class="string">`age`</span> <span class="built_in">smallint</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span> <span class="keyword">COMMENT</span> <span class="string">'年龄'</span>,</span><br><span class="line">	PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">COMMENT</span>=<span class="string">'教师表'</span>;</span></span><br></pre></td></tr></table></figure>
+<p>2&gt; 配置properties常量</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 数据库驱动jar 路径</span></span><br><span class="line">drive.<span class="keyword">class</span>.path=/Users/arccode/repo/mysql/mysql-connector-java/<span class="number">5.1</span><span class="number">.30</span>/mysql-connector-java-<span class="number">5.1</span><span class="number">.30</span>.jar</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 数据库连接参数</span></span><br><span class="line">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql:<span class="comment">//localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8</span></span><br><span class="line">jdbc.username=mysql</span><br><span class="line">jdbc.password=mysqlpwd</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 包路径配置</span></span><br><span class="line">model.package=com.arccode.web.model</span><br><span class="line">dao.package=com.arccode.web.dao</span><br><span class="line">xml.mapper.package=com.arccode.web.dao</span><br><span class="line"></span><br><span class="line">target.project=src/main/java</span><br></pre></td></tr></table></figure>
+<p>3&gt; 配置文件-generatorConfig.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE generatorConfiguration</span><br><span class="line">        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span><br><span class="line">        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置文件路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">properties</span> <span class="attribute">url</span>=<span class="value">"$&#123;mybatis.generator.generatorConfig.properties&#125;"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--数据库驱动包路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">classPathEntry</span> <span class="attribute">location</span>=<span class="value">"$&#123;drive.class.path&#125;"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="title">context</span> <span class="attribute">id</span>=<span class="value">"MySQLTables"</span> <span class="attribute">targetRuntime</span>=<span class="value">"MyBatis3"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--关闭注释 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">commentGenerator</span>&gt;</span>	</span><br><span class="line">            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressDate"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--数据库连接信息 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">jdbcConnection</span> <span class="attribute">driverClass</span>=<span class="value">"$&#123;jdbc.driver&#125;"</span> <span class="attribute">connectionURL</span>=<span class="value">"$&#123;jdbc.url&#125;"</span> <span class="attribute">userId</span>=<span class="value">"$&#123;jdbc.username&#125;"</span></span><br><span class="line">                        <span class="attribute">password</span>=<span class="value">"$&#123;jdbc.password&#125;"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--生成的model 包路径 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">javaModelGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"$&#123;model.package&#125;"</span> <span class="attribute">targetProject</span>=<span class="value">"$&#123;target.project&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"ture"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"trimStrings"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">javaModelGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--生成xml mapper文件 路径 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">sqlMapGenerator</span> <span class="attribute">targetPackage</span>=<span class="value">"$&#123;xml.mapper.package&#125;"</span> <span class="attribute">targetProject</span>=<span class="value">"$&#123;target.project&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"ture"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">sqlMapGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 生成的Dao接口 的包路径 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">javaClientGenerator</span> <span class="attribute">type</span>=<span class="value">"XMLMAPPER"</span> <span class="attribute">targetPackage</span>=<span class="value">"$&#123;dao.package&#125;"</span> <span class="attribute">targetProject</span>=<span class="value">"$&#123;target.project&#125;"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"enableSubPackages"</span> <span class="attribute">value</span>=<span class="value">"ture"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--对应数据库表名 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">table</span> <span class="attribute">tableName</span>=<span class="value">"teacher"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="title">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>4&gt; 运行maven - Run As Maven build</p>
+<p>Goals 参数 : mybatis-generator:generate -Dmybatis.generator.overwrite=true</p>
+<h3 id="实现需求二">实现需求二</h3><p>修改配置文件-generatorConfig.xml, 将table标签修改如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;table tableName=<span class="string">"teacher"</span> <span class="built_in">enable</span>CountByExample=<span class="string">"false"</span> </span><br><span class="line">	<span class="built_in">enable</span>UpdateByExample=<span class="string">"false"</span> <span class="built_in">enable</span>DeleteByExample=<span class="string">"false"</span> </span><br><span class="line">	<span class="built_in">enable</span>SelectByExample=<span class="string">"false"</span> selectByExampleQueryId=<span class="string">"false"</span>&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="实现需求三">实现需求三</h3><p>修改mybatis-generator源码</p>
+<p>位置: <code>mybatis-generator-core/src/main/java/org/mybatis/generator/internal/DefaultCommentGenerator.java</code></p>
+<p>修改该类的方法: addFieldComment</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public void addFieldComment(Field field,</span><br><span class="line">            IntrospectedTable introspectedTable,</span><br><span class="line">            IntrospectedColumn introspectedColumn) &#123;</span><br><span class="line">        if (suppressAllComments) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line"></span><br><span class="line">        field.addJavaDocLine(<span class="string">"/**"</span>); //<span class="variable">$NON-NLS-1</span>$</span><br><span class="line">//        field.addJavaDocLine(<span class="string">" * This field was generated by MyBatis Generator."</span>); //<span class="variable">$NON-NLS-1</span>$</span><br><span class="line"></span><br><span class="line">        sb.append(<span class="string">" *  "</span>); //<span class="variable">$NON-NLS-1</span>$</span><br><span class="line">        sb.append(introspectedColumn.getRemarks());</span><br><span class="line">        sb.append(<span class="string">",所属表字段为"</span>);</span><br><span class="line">        sb.append(introspectedTable.getFullyQualifiedTable());</span><br><span class="line">        sb.append(<span class="string">'.'</span>);</span><br><span class="line">        sb.append(introspectedColumn.getActualColumnName());</span><br><span class="line">        field.addJavaDocLine(sb.toString());</span><br><span class="line"></span><br><span class="line">//        addJavadocTag(field, false);</span><br><span class="line"></span><br><span class="line">        field.addJavaDocLine(<span class="string">" */"</span>); //<span class="variable">$NON-NLS-1</span>$</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如果不想修改源码, 可以下载<a href="https://github.com/arccode/mybatisn_generator_cn" target="_blank" rel="external">mybatis生成中文注释</a>项目, maven本地安装后在pom中配置version即可.</p>
+<p>使用git克隆github项目(mybatis-generator源项目)</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 克隆 parent</span></span><br><span class="line">git clone https:<span class="comment">//github.com/mybatis/parent.git</span></span><br><span class="line"><span class="comment">// 将该项目安装到本地maven库, mybatis-generator依赖于该项目</span></span><br><span class="line">mvn clean install -Dmaven<span class="class">.test</span><span class="class">.skip</span>=true</span><br><span class="line"><span class="comment">// 克隆 mybatis-generator</span></span><br><span class="line">git clone https:<span class="comment">//github.com/mybatis/generator.git</span></span><br><span class="line"><span class="comment">// 将该jar安装到本地, 之后项目中使用, 时间有点长, 可以喝杯咖啡</span></span><br><span class="line">mvn clean install -Dmaven<span class="class">.test</span><span class="class">.skip</span>=true</span><br></pre></td></tr></table></figure>
+<p>碰到的问题:</p>
+<ol>
+<li>Could not find artifact com.sun:tools:jar:0 at specified path…</li>
+</ol>
+<p>平台: Mac</p>
+<p>Jdk: 自带的jdk_1.6.0</p>
+<p>解决办法: 安装jdk1.7, 该版本带有tools.jar</p>
+<h2 id="最佳实践">最佳实践</h2><p>在以上三点需求完成后, 还可做以下修改使得开发更快更敏捷</p>
+<ol>
+<li>配置文件中commentGenerator配置项最好不要设置为不生成注释，因为这样带来的问题是在自动生成的代码上不会存在@mbggenerated 这样的标记，这个标记是用来标注这些代码是代码生成器生成的，如果关闭了注释，我们在多次使用mybatis generator重新生成代码时会导致在已有生成的文件上追加生成重复的内容，导致代码错误，故我建议如果你只生成一次代码，以后再不用工具生成可以关闭注释，如果会重复生成就要把注释开关打开。以下配置参数是关闭时间注释：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">commentGenerator</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"suppressDate"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">commentGenerator</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Model示例">Model示例</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class Teacher &#123;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  主键id,所属表字段为teacher.id</span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    private Long id;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  名称,所属表字段为teacher.name</span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  年龄,所属表字段为teacher.age</span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    private Short age;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  性别,所属表字段为teacher.sex</span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    private String sex;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 获取 主键id 字段:teacher.id</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return teacher.id, 主键id</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public Long getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 设置 主键id 字段:teacher.id</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param id teacher.id, 主键id</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public void setId(Long id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 获取 名称 字段:teacher.name</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return teacher.name, 名称</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 设置 名称 字段:teacher.name</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param name teacher.name, 名称</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name == null ? null : name.trim();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 获取 年龄 字段:teacher.age</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return teacher.age, 年龄</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public Short getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 设置 年龄 字段:teacher.age</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param age teacher.age, 年龄</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public void setAge(Short age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 获取 性别 字段:teacher.sex</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return teacher.sex, 性别</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public String getSex() &#123;</span><br><span class="line">        return sex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 设置 性别 字段:teacher.sex</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param sex teacher.sex, 性别</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    public void setSex(String sex) &#123;</span><br><span class="line">        this.sex = sex == null ? null : sex.trim();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><p><a href="http://leeon.me/a/mybatis-generator-note" target="_blank" rel="external">MyBatis Generator使用小记</a></p>
+<p><a href="http://blog.csdn.net/bluishglc/article/details/8721994" target="_blank" rel="external">为Maven指定tools.jar ，解决Missing artifact com.sun:tools:jar:1.5.0错误</a></p>
+<p><a href="http://maven.apache.org/general.html#tools-jar-dependency" target="_blank" rel="external">Maven Frequently Asked Technical Questions</a></p>
+<p><a href="http://my.oschina.net/huangyong/blog/195559" target="_blank" rel="external">使用 OSC Maven 第三方仓库</a></p>
+<p><a href="http://www.cnphp6.com/archives/68863" target="_blank" rel="external">MYBATIS GENEATOR 详解</a></p>
+<p><a href="https://github.com/sogyf/mybatisn_generator_cn" target="_blank" rel="external">mybatisn_generator_cn中文注释项目</a></p>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/MyBatis/"> #MyBatis </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/02/25/理解本真的REST架构风格/">理解本真的REST架构风格</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/02/04/UltimateAndroid-demo效果图文档/">UltimateAndroid-demo效果图文档</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/02/07/MyBatis-Generator最佳实践/"
+               data-title="MyBatis-Generator最佳实践" data-url="http://arccode.net/2015/02/07/MyBatis-Generator最佳实践/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实现需求一"><span class="nav-number">2.1.</span> <span class="nav-text">实现需求一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现需求二"><span class="nav-number">2.2.</span> <span class="nav-text">实现需求二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现需求三"><span class="nav-number">2.3.</span> <span class="nav-text">实现需求三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践"><span class="nav-number">3.</span> <span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model示例"><span class="nav-number">4.</span> <span class="nav-text">Model示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

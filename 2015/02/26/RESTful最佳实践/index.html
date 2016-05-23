@@ -1,0 +1,1078 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Http,Rest," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> RESTful最佳实践 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              RESTful最佳实践
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-26
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/26/RESTful最佳实践/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/26/RESTful最佳实践/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h1 id="背景">背景</h1><p>此文为实践总结，是自己在实践过程中积累的经验和”哲学”。部分内容参考相关资料，参考内容请看尾页。建议对RESTful有一定了解者阅读!</p>
+<h1 id="哲学">哲学</h1><ul>
+<li>不要为了RESTful而RESTful</li>
+<li>在能表达清楚的情况下，简单就是美</li>
+</ul>
+<h1 id="接口路径设计">接口路径设计</h1><h2 id="接口设计原则">接口设计原则</h2><h3 id="URI指向的是唯一的资源对象">URI指向的是唯一的资源对象</h3><p><strong>示例:</strong> 指向ID为<code>yanbo.ai</code>的<code>Account</code>对象</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/accounts/yanbo.ai</span><br></pre></td></tr></table></figure>
+<h3 id="URI可以隐式指向唯一的集合列表">URI可以隐式指向唯一的集合列表</h3><p><strong>示例:</strong> 隐式地指向trades list 集合</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades/(list)</span><br><span class="line">等同于</span><br><span class="line">GET http://~/<span class="variable">$version</span>/trades</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="聚合资源必须通过父级资源操作">聚合资源必须通过父级资源操作</h3><p><strong>示例:</strong> <code>Profile</code>是<code>User</code>的聚合资源，<code>User</code>有一个唯一且私有的<code>Profile</code>资源，只能通过<code>User</code>操作<code>Profile</code>。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">更新user_id为<span class="number">123456</span>的Profile资源</span><br><span class="line">PUT http://~/<span class="variable">$version</span>/users/<span class="number">123456</span>/profiles</span><br><span class="line">Request Body:</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"full_name"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"Shanghai"</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Senior software engineer"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="组合资源要避免资源路径嵌套">组合资源要避免资源路径嵌套</h3><p><strong>示例:</strong> 一个系统里面包含多个 applications，一个 application 又包含多个 users。那获取 user 资源的路径应该是怎样的？</p>
+<p>看一个路径嵌套的例子：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">GET </span><span class="symbol">http:</span>/<span class="regexp">/~/</span><span class="variable">$version</span>/systems/<span class="symbol">:systemId/applications/</span><span class="symbol">:applicationId/users/</span><span class="symbol">:userId</span></span><br></pre></td></tr></table></figure>
+<p>这样做是不合理的，它会让你的接口变得越来越混乱和缺少灵活性。正确的做法是：</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/systems/:systemId</span><br><span class="line">GET http://~/<span class="variable">$version</span>/applications/:applicationId </span><br><span class="line">GET http://~/<span class="variable">$version</span>/users/:userId/</span><br></pre></td></tr></table></figure>
+<h2 id="Http_Methods">Http Methods</h2><table>
+<thead>
+<tr>
+<th>HTTP Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>获取，查找</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>新增创建</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td>更新</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td>部分更新</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>删除</td>
+</tr>
+</tbody>
+</table>
+<h2 id="URL组成">URL组成</h2><ol>
+<li>网络协议(<em>HTTP</em>, <em>HTTPS</em>)</li>
+<li>服务器地址</li>
+<li>版本</li>
+<li>接口名称</li>
+<li>?参数列表</li>
+</ol>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET <span class="string">https:</span><span class="comment">//github.com/v1/trades</span></span><br></pre></td></tr></table></figure>
+<p><strong>为什么需要版本?</strong></p>
+<p>当服务被更多其他系统使用的时候，服务的可用性和上下兼容变得至关重要。被外部系统依赖的服务在升级时是一个非常麻烦的事情，既要发布新的接口，又要保留旧的接口留出时间让调用者去升级。在URL中加入<code>Version</code>标示能很好地解决上下兼容(新老版本共存)问题。</p>
+<p><strong>示例1:</strong> URL中新增了Path parameter</p>
+<p>v1版本</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET <span class="string">http:</span><span class="comment">//~/v1/trades?user_id=123456</span></span><br></pre></td></tr></table></figure>
+<p>v2版本</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">GET </span><span class="symbol">http:</span>/<span class="regexp">/~/v</span>2/<span class="symbol">:user_id/trades</span></span><br></pre></td></tr></table></figure>
+<p>示例1中的<code>user_id</code>参数在v2版本被加入到path parameter中，使用<code>$version</code>保证了<code>v1</code>和<code>v2</code>接口的共存。</p>
+<p><strong>示例2:</strong> 数据接口发生变化</p>
+<p>v1版本</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET <span class="string">http:</span><span class="comment">//~/v1/accounts/yanbo.ai</span></span><br><span class="line">Response <span class="string">Body:</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"user_name"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">    <span class="string">"e_mail"</span>: <span class="string">"yanbo.ai@gmail.com"</span>,</span><br><span class="line">    <span class="string">"state"</span>: <span class="string">"Shanghai"</span>,</span><br><span class="line">    <span class="string">"title"</span>: <span class="string">"Senior software engineer"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>v2版本</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET <span class="string">http:</span><span class="comment">//~/v2/accounts/yanbo.ai</span></span><br><span class="line">Response <span class="string">Body:</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"user_name"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">    <span class="string">"e_mail"</span>: <span class="string">"yanbo.ai@gmail.com"</span>,</span><br><span class="line">    <span class="string">"profile"</span>: &#123;</span><br><span class="line">        <span class="string">"state"</span>: <span class="string">"Shanghai"</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Senior software engineer"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例2中的接口返回数据结构已经发生了变化。使用<code>$version</code>保证了<code>v1</code>和<code>v2</code>接口的共存。</p>
+<h2 id="URL定义限制">URL定义限制</h2><ol>
+<li>不使用大写字母</li>
+<li>使用中线<code>-</code>代替下划线<code>_</code></li>
+<li>参数列表应该被encode过</li>
+</ol>
+<h2 id="接口分类">接口分类</h2><h3 id="资源对象的CURD操作">资源对象的CURD操作</h3><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades            获取trades列表</span><br><span class="line">GET http://~/<span class="variable">$version</span>/trades/:id        根据id获取单个trade</span><br><span class="line">POST http://~/<span class="variable">$version</span>/trades           创建trade</span><br><span class="line">PUT http://~/<span class="variable">$version</span>/trades/:id        根据id更新trade</span><br><span class="line">PATCH http://~/<span class="variable">$version</span>/trades/:id      根据id部分更新trade</span><br><span class="line">DELETE http://~/<span class="variable">$version</span>/trades/:id     根据id删除trade</span><br></pre></td></tr></table></figure>
+<h3 id="服务型接口">服务型接口</h3><p>使用<code>services</code>标识，根据服务的属性选择http方法。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://~/services/<span class="variable">$version</span>/server-name</span><br></pre></td></tr></table></figure>
+<h3 id="系统设置">系统设置</h3><p>使用<code>settings</code>标识，根据服务的属性选择http方法。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://~/settings/<span class="variable">$version</span>/server-name</span><br></pre></td></tr></table></figure>
+<p><strong>示例1:</strong> 搜索</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/services/<span class="variable">$version</span>/search?q=filter?category=file</span><br></pre></td></tr></table></figure>
+<p><strong>示例2:</strong> 任务队列操作</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUT http://~/services/<span class="variable">$version</span>/queued/jobs          往任务队列里面添加一个新的任务</span><br><span class="line">DELETE http://~/services/<span class="variable">$version</span>/queued/jobs/:id   根据id删除任务</span><br></pre></td></tr></table></figure>
+<p><strong>示例3:</strong> 更改界面语言环境</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT http://~/settings/<span class="variable">$version</span>/gui/lang</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"lang"</span>: <span class="string">"zh-CN"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>为什么需要区分?</strong></p>
+<p>1.<a href="http://martinfowler.com/articles/microservices.html" title="Microservices" target="_blank" rel="external">Microservices</a></p>
+<p><code>Microservices</code>是一个全新的概念，它主要的观点是将一个大型的服务系统分解成多个微型系统。每个微型系统都能独立工作，并且提供各种不同的服务。独立运行的特点使微型系统之间不会产生相互影响，其中的一个微型系统宕机并不会牵连到其他的微型系统。这种架构使<a href="http://googlecloudplatform.blogspot.com/2014/01/large-akka-cluster-on-google-compute.html" title="Large Cluster" target="_blank" rel="external">分布式系统的节点数量</a>大大提升。因为RESTful服务是无状态的，所以这种分解并不会带来状态共享的问题。</p>
+<p>2.路由规则(逻辑)</p>
+<p>当我们需要对不同属性的接口做路由规则的时候，按功能划分接口是一个很好的方案。例如：我们要对系统设置接口设置增加更严格的调用限制。</p>
+<h2 id="缓存">缓存</h2><p>网络接口相对于堆栈接口来说数据传输极其不稳定，尽可能地减少数据传输不仅能控制这种风险还能减少流量。使用缓存还能有效地提高后台的吞吐量。 </p>
+<p>后台在响应请求时使用响应头<code>E-Tag</code>或<code>Last-Modified</code>来标记数据的版本，前台在发送请求时将数据版本通过请求头<code>If-Match</code>帮助后台判断缓存的使用。</p>
+<p><strong>Request Header</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">If-Match</span>: <span class="string">2390239059405940</span></span><br></pre></td></tr></table></figure>
+<p><strong>Response Header</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E-Tag: <span class="number">2390239059405940</span></span><br><span class="line">Last-Modified: <span class="number">2014</span>-<span class="number">04</span>-<span class="number">05</span>T14:<span class="number">30</span>Z</span><br></pre></td></tr></table></figure>
+<h2 id="Bookmarker">Bookmarker</h2><p>在实际的环境中，有大量的查询需求是相同的。将这些搜索需求标签化能降低使用难度也可以达到重用的目的。</p>
+<p><strong>示例1:</strong> 查找状态为关闭的订单</p>
+<p><strong>普通方式</strong></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades?status=closed&amp;sorting=-created_at</span><br></pre></td></tr></table></figure>
+<p><strong>Bookmarker</strong></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">GET</span> <span class="symbol">http:</span>/<span class="regexp">/~/</span><span class="variable">$version</span>/trades<span class="comment">#recently_closed</span></span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades/recently_closed</span><br></pre></td></tr></table></figure>
+<h2 id="HATEOAS">HATEOAS</h2><p>HATEOAS通过<a href="http://tools.ietf.org/html/rfc5988" title="Web Linking" target="_blank" rel="external">Web Linking</a>的方式来描述程序的状态信息 </p>
+<p>Link 主要包含以下属性:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rel</td>
+<td>关联内容</td>
+</tr>
+<tr>
+<td>href</td>
+<td>URL</td>
+</tr>
+<tr>
+<td>type</td>
+<td>媒体类型</td>
+</tr>
+<tr>
+<td>method</td>
+<td>Http Method</td>
+</tr>
+<tr>
+<td>title</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>arguments</td>
+<td>参数列表</td>
+</tr>
+<tr>
+<td>value</td>
+<td>返回值</td>
+</tr>
+</tbody>
+</table>
+<p><code>Rel</code> 可能为以下值:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>next</td>
+<td>下一步</td>
+</tr>
+<tr>
+<td>prev</td>
+<td>上一步</td>
+</tr>
+<tr>
+<td>first</td>
+<td>第一步，最前</td>
+</tr>
+<tr>
+<td>last</td>
+<td>最后一步，最后</td>
+</tr>
+<tr>
+<td>source</td>
+<td>来源</td>
+</tr>
+<tr>
+<td>self</td>
+<td>资源自身，相对于this</td>
+</tr>
+</tbody>
+</table>
+<p>Web Linking 可以通过两种方式传递至客户端:</p>
+<p><strong>Http Header</strong></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Link: &lt;http://~/<span class="variable">$version</span>/trades?page_no=<span class="number">10</span>&gt;; rel=<span class="string">"next"</span>, &lt;http://~/<span class="variable">$version</span>/trades?page_no=<span class="number">19</span>&gt;; rel=<span class="string">"last"</span></span><br></pre></td></tr></table></figure>
+<p><strong>Http JSON Body</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">links</span>": <span class="value">[</span><br><span class="line">        &#123;</span><br><span class="line">            "<span class="attribute">rel</span>": <span class="value"><span class="string">"next"</span></span>,</span><br><span class="line">            "<span class="attribute">href</span>": <span class="value"><span class="string">"http://~/$version/trades?page_no=1"</span></span><br><span class="line">        </span>&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            "<span class="attribute">rel</span>": <span class="value"><span class="string">"last"</span></span>,</span><br><span class="line">            "<span class="attribute">href</span>": <span class="value"><span class="string">"http://~/$version/trades?page_no=19"</span></span><br><span class="line">        </span>&#125;</span><br><span class="line">    ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例1:</strong> 用户注册业务</p>
+<ol>
+<li>用户填写E-Mail与密码</li>
+<li>完善用户资料</li>
+</ol>
+<p><strong>Register Request</strong></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST http://~/<span class="variable">$version</span>/accounts</span><br><span class="line">Headers:</span><br><span class="line">    Accept: application/json</span><br><span class="line">    Content-Type: application/json;charset=utf-<span class="number">8</span></span><br><span class="line">Body:</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"username"</span>: <span class="string">"yanbo.ai@gmail.com"</span>,</span><br><span class="line">        <span class="string">"e_mail"</span>: <span class="string">"yanbo.ai@gmail.com"</span>,</span><br><span class="line">        <span class="string">"password"</span>: <span class="string">"balabala"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Register Response</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Headers:</span></span><br><span class="line">    Content-<span class="string">Type:</span> application/json;charset=utf-<span class="number">8</span></span><br><span class="line"><span class="string">Status:</span> <span class="number">201</span> Created</span><br><span class="line"><span class="string">Body:</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"uri"</span>: <span class="string">"http://~/$version/accounts/yanbo.ai"</span>,</span><br><span class="line">        <span class="string">"identity"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">        <span class="string">"created_at"</span>: <span class="string">"2014-04-05T14:30Z"</span>,</span><br><span class="line">        <span class="string">"links"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"rel"</span>: <span class="string">"next"</span>,</span><br><span class="line">                <span class="string">"href"</span>: <span class="string">"http://~/$version/accounts/yanbo.ai/profiles"</span>,</span><br><span class="line">                <span class="string">"method"</span>: <span class="string">"POST"</span>,</span><br><span class="line">                <span class="string">"title"</span>: <span class="string">"Editing Profiles"</span>,</span><br><span class="line">                <span class="string">"arguments"</span>: <span class="string">"status=editing"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Profile Request</strong></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST http://~/<span class="variable">$version</span>/accounts/yanbo.ai/profiles</span><br><span class="line">Headers:</span><br><span class="line">    Accept: application/json</span><br><span class="line">    Content-Type: application/json;charset=utf-<span class="number">8</span></span><br><span class="line">Body:</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"full_name"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">        <span class="string">"state"</span>: <span class="string">"Shanghai"</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Senior software engineer"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Profile Response</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Headers:</span></span><br><span class="line">    Content-<span class="string">Type:</span> application/json;charset=utf-<span class="number">8</span></span><br><span class="line"><span class="string">Status:</span> <span class="number">201</span> Created</span><br><span class="line"><span class="string">Body:</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"uri"</span>: <span class="string">"http://~/$version/accounts/yanbo.ai/profiles"</span>,</span><br><span class="line">        <span class="string">"identity"</span>: <span class="string">"yanbo.ai"</span>,</span><br><span class="line">        <span class="string">"created_at"</span>: <span class="string">"2014-04-05T14:30Z"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例2:</strong> 请看下节&lt;<strong>分页</strong>&gt;</p>
+<p><strong>HATEOAS在解决什么问题?</strong></p>
+<p><a href="http://en.wikipedia.org/wiki/HATEOAS" title="HATEOAS" target="_blank" rel="external">HATEOAS</a>是Hypermedia as the Engine of Application State的缩写形式，中文意思为：超媒体应用状态引擎。它的核心思想是使用超媒体表达应用状态，与hypertext-driven思想是一致的。在此之前，我们大多数的程序业务控制在前台完成。例如：我们会在前台做注册流程，我们在前台判定下一步应该做什么，可以做什么。当使用HATEOAS时，这些状态流程控制都在应用程序的后台完成。我们使用超媒体来表达前台做完某一步骤之后可以做哪些? 这样一来，前台的任务就变得相当简单了，前台需要处理的是理解状态表述，数据收集和结果显示。</p>
+<p><strong>思考</strong></p>
+<p>HATEOAS会带来怎样的改变? 使用它的意义在哪?</p>
+<h2 id="分页">分页</h2><p><strong>Request</strong></p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades?page=<span class="number">10</span>&amp;pre_page=<span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p><strong>Response</strong></p>
+<p>Link Header</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Link: &lt;http://~/<span class="variable">$version</span>/trades?page=<span class="number">11</span>&amp;pre_page=<span class="number">100</span>&gt;; rel=<span class="string">"next"</span>, &lt;http://~/<span class="variable">$version</span>/trades?page=<span class="number">19</span>&amp;pre_page=<span class="number">100</span>&gt;; rel=<span class="string">"last"</span></span><br></pre></td></tr></table></figure>
+<p>JSON Body</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">links</span>": <span class="value">[</span><br><span class="line">        &#123;</span><br><span class="line">            "<span class="attribute">rel</span>": <span class="value"><span class="string">"next"</span></span>,</span><br><span class="line">            "<span class="attribute">href</span>": <span class="value"><span class="string">"http://~/$version/trades?page=11&amp;pre_page=100"</span></span><br><span class="line">        </span>&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            "<span class="attribute">rel</span>": <span class="value"><span class="string">"last"</span></span>,</span><br><span class="line">            "<span class="attribute">href</span>": <span class="value"><span class="string">"http://~/$version/trades?page=19&amp;pre_page=100"</span></span><br><span class="line">        </span>&#125;</span><br><span class="line">    ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="安全">安全</h1><h2 id="调用限制">调用限制</h2><p>为保证服务的可用性应对服务进行调用过载保护</p>
+<p><strong>Response Headers</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-RateLimit-Limit</span>: <span class="string">3000             调用量的最大限制</span></span><br><span class="line"><span class="attribute">X-RateLimit-Reset</span>: <span class="string">1403162176516    调用限制重置时间</span></span><br><span class="line"><span class="attribute">X-RateLimit-Remaining</span>: <span class="string">299          剩余的调用量</span></span><br></pre></td></tr></table></figure>
+<h2 id="安全验证">安全验证</h2><p>RESTful服务使用Oauth2的方式进行调用授权，使用http<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP Header" target="_blank" rel="external">请求头</a><code>Authorization</code>设置授权码; 必须使用<code>User-Agent</code>设置客户端信息, 无<code>User-Agent</code>请求头的请求应该被拒绝访问。</p>
+<p><strong>Request Header</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">User-Agent</span>: <span class="string">Data-Server-Client</span></span><br><span class="line"><span class="attribute">Authorzation</span>: <span class="string">Bearer 383w9JKJLJFw4ewpie2wefmjdlJLDJF</span></span><br></pre></td></tr></table></figure>
+<p><strong>为什么建议使用Oauth2授权?</strong></p>
+<p><a href="http://tools.ietf.org/html/rfc6749" title="Oauth2" target="_blank" rel="external">Oauth2</a>的参与者为：客户端，资源所有者，授权服务器，资源服务器。客户端先从资源所有者得到授权码之后使用授权码从授权服务器得到<code>token</code>，再使用<code>token</code>调用资源服务器获取经过资源所有者授权使用的资源。这种授权方式的特点有： </p>
+<ol>
+<li><p>资源所有者可以随时撤销授权许可 </p>
+</li>
+<li><p>可以通过撤销<code>token</code>拒绝客户端的调用 </p>
+</li>
+<li><p>资源服务器可以拒绝客户端的调用 </p>
+</li>
+</ol>
+<p>通过这三种方式可以做到对资源的严格保护。资源的访问权限也把握在资源所有者的手中，而不是资源服务器。 </p>
+<p>当然，Oauth2授权框架也允许受信任的客户端直接使用<code>token</code>调用资源服务器获取资源。这种灵活性完全取决于客户端类型和对资源的保护程度。</p>
+<p><strong>为什么授权码要放在Http Header中?</strong></p>
+<ol>
+<li>WEB服务器对访问做记录已经成为了行业的一个标准，访问记录不仅可以用来做访问量统计还能用来做访问特征分析。互联网广告平台就是利用访问记录来做精准营销的。如果<code>token</code>(授权码)包含在URL中就有很大的安全风险。</li>
+<li>包含在URL中的<code>token</code>串可能被进行重定向传递。通过这两种方式入侵者可以不通过授权而使用泄漏的授权码访问那些受保护的数据，会造成数据泄漏的风险。</li>
+</ol>
+<p>以Tomcat为例，访问日志为:</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0.0.1</span> - - <span class="string">[24/Jun/2014:14:38:04 +0800]</span> <span class="string">"<span class="keyword">GET</span> /v1/accounts/yanbo.ai?token=dgdreLJLJLER798989erJKJK HTTPS/1.1"</span> <span class="number">200</span> <span class="number">343</span></span><br></pre></td></tr></table></figure>
+<p>通过对访问日志的提取，很容易得到<code>token</code>信息。</p>
+<hr>
+<h1 id="数据设计">数据设计</h1><h2 id="交互原则">交互原则</h2><ol>
+<li>查询，过滤条件使用query string。</li>
+<li>用来描述数据或者请求的元数据放Header中，例如 <code>X-Result-Fields</code>。</li>
+<li>Content body 仅仅用来传输数据。</li>
+<li>数据要做到拿来就可用的原则，不需要“拆箱”的过程。</li>
+<li>使用ISO-8601格式表达时间字段，例如: <code>2014-04-05T14:30Z</code>。</li>
+</ol>
+<h2 id="结构">结构</h2><p>使用JSON格式传输数据，在http请求头和响应头申明<code>Content-Type</code>。返回的数据结构应该做到尽可能简单，不要过于包装。响应状态应该包含在响应头中！</p>
+<p><strong>Request</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept</span>: <span class="string">application/json</span></span><br><span class="line"><span class="attribute">Content-Type</span>: <span class="string">application/json;charset=UTF-8</span></span><br></pre></td></tr></table></figure>
+<p><strong>Response</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Content-Type</span>: <span class="string">application/json;charset=UTF-8</span></span><br></pre></td></tr></table></figure>
+<p><strong>错误的做法</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">status</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">trade_id</span>": <span class="value"><span class="number">1234</span></span>,</span><br><span class="line">        "<span class="attribute">trade_name</span>": <span class="value"><span class="string">"Bala bala"</span></span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>正确的做法</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Response Headers:</span><br><span class="line">    Status: <span class="number">200</span></span><br><span class="line">Response Body:</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"trade_id"</span>: <span class="number">1234</span>,</span><br><span class="line">        <span class="string">"trade_name"</span>: <span class="string">"Bala bala"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>示例1:</strong> 创建<code>User</code>对象</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">POST http://~/<span class="variable">$version</span>/users</span><br><span class="line">Request</span><br><span class="line">    headers:</span><br><span class="line">        Accept: application/json</span><br><span class="line">        Content-Type: application/json;charset=UTF-<span class="number">8</span></span><br><span class="line">    body:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"user_name"</span>: <span class="string">"Andy Ai"</span></span><br><span class="line">        &#125;</span><br><span class="line">Response</span><br><span class="line">    status: <span class="number">201</span> Created</span><br><span class="line">    headers:</span><br><span class="line">        Content-Type: application/json;charset=UTF-<span class="number">8</span></span><br><span class="line">    body:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"uri"</span>: <span class="string">"http://~/$version/users/1234"</span>,</span><br><span class="line">            <span class="string">"identity"</span>: <span class="number">1234</span>,</span><br><span class="line">            <span class="string">"created_at"</span>: <span class="string">"2014-04-05T14:30Z"</span>,</span><br><span class="line">            <span class="string">"links"</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"rel"</span>: <span class="string">"next"</span>,</span><br><span class="line">                    <span class="string">"href"</span>: <span class="string">"http://~/gui/users/1234"</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>为什么是JSON?</strong></p>
+<p><code>JSON</code> 是一种可以跨平台高扩展的轻量级的数据交换格式。易于人阅读和编写，同时也易于机器解析和生成。</p>
+<h2 id="属性定义限制">属性定义限制</h2><ol>
+<li>不能使用大写(大小写友好)</li>
+<li>使用下划线_命名(连接两个单词)</li>
+<li>属性和字符串值必须使用双引号””</li>
+</ol>
+<h2 id="提取部分字段">提取部分字段</h2><p>无状态服务器应该允许客户端对数据按需提取。在<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP Header" target="_blank" rel="external">请求头</a>使用<code>X-Result-Fields</code>指定数据返回的字段集合。 </p>
+<p>例如：trade 有<code>trade_id</code>, <code>trade_name</code>, <code>created_at</code> 三个属性，客户端只需其中的<code>trade_id</code>与<code>trade_name</code>属性。</p>
+<p><strong>Request Header</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Result-Fields</span>: <span class="string">trade_id,trade_name</span></span><br></pre></td></tr></table></figure>
+<h2 id="子对象描述">子对象描述</h2><p>数据里面的子对象使用URI描述不应该被提取，除非用户指定需要提取子对象</p>
+<p><strong>示例:</strong> <code>trade</code>里面的<code>order</code>对象 </p>
+<p><strong>错误的做法</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">trade_id</span>": <span class="value"><span class="string">"123456789"</span></span>,</span><br><span class="line">    "<span class="attribute">full_path</span>": <span class="value"><span class="literal">null</span></span>,</span><br><span class="line">    "<span class="attribute">order</span>": <span class="value">&#123;</span><br><span class="line">        "<span class="attribute">order_id</span>": <span class="value"><span class="string">"987654321"</span></span><br><span class="line">    </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>正确的做法</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    "<span class="attribute">trade_id</span>": <span class="value"><span class="string">"123456789"</span></span>,</span><br><span class="line">    "<span class="attribute">order</span>": <span class="value"><span class="string">"http://~/$version/orders/987654321"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>应用指定提取子对象，需要在请求头声明<code>X-Expansion-Fields</code></p>
+<p><strong>Request</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Expansion-<span class="string">Fields:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><strong>为什么要客户端指定提取子对象时才提取?</strong></p>
+<p>懒模式服务能够最大程度地节省运算资源。虽然与客户端交互的次数有所增加，但是能做到按需提取，按需响应，这也是响应式设计的一大特点。客户端的用户行为模式无法真实地模拟，也就无法确定哪些资源需要做到一次性推送，让客户端按需使用是一个不错的方式。</p>
+<p><strong>关于空字段</strong></p>
+<p>应该在返回结果里面剔除空字段，因为null值传输到客户端并没有实际的含义，反而增加了占用空间。</p>
+<p><strong>Tips</strong></p>
+<p>使用<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" title="HTTP Header" target="_blank" rel="external">HTTP Header</a>时，优先使用合适的标准头属性。用<code>X-</code>作为前缀自定义一个头属性，例如: <code>X-Result-Fields</code>。</p>
+<hr>
+<h1 id="状态码&amp;错误处理">状态码&amp;错误处理</h1><h2 id="应用状态码">应用状态码</h2><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>HTTP Operation    Body</th>
+<th>Contents</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>GET,PUT</td>
+<td>资源</td>
+<td>操作成功</td>
+</tr>
+<tr>
+<td>201</td>
+<td>POST</td>
+<td>资源,元数据</td>
+<td>对象创建成功</td>
+</tr>
+<tr>
+<td>202</td>
+<td>POST,PUT,DELETE,PATCH</td>
+<td>N/A</td>
+<td>请求已经被接受</td>
+</tr>
+<tr>
+<td>204</td>
+<td>DELETE,PUT,PATCH</td>
+<td>N/A</td>
+<td>操作已经执行成功，但是没有返回数据</td>
+</tr>
+<tr>
+<td>301</td>
+<td>GET</td>
+<td>link</td>
+<td>资源已被移除</td>
+</tr>
+<tr>
+<td>303</td>
+<td>GET</td>
+<td>link</td>
+<td>重定向</td>
+</tr>
+<tr>
+<td>304</td>
+<td>GET</td>
+<td>N/A</td>
+<td>资源没有被修改</td>
+</tr>
+<tr>
+<td>400</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>参数列表错误(缺少，格式不匹配)</td>
+</tr>
+<tr>
+<td>401</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>未授权</td>
+</tr>
+<tr>
+<td>403</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>访问受限，授权过期</td>
+</tr>
+<tr>
+<td>404</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>资源，服务未找到</td>
+</tr>
+<tr>
+<td>405</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>不允许的http方法</td>
+</tr>
+<tr>
+<td>409</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>资源冲突，或者资源被锁定</td>
+</tr>
+<tr>
+<td>415</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>不支持的数据(媒体)类型</td>
+</tr>
+<tr>
+<td>429</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>请求过多被限制</td>
+</tr>
+<tr>
+<td>500</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>系统内部错误</td>
+</tr>
+<tr>
+<td>501</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>错误提示(消息)</td>
+<td>接口未实现</td>
+</tr>
+</tbody>
+</table>
+<h2 id="容器状态码">容器状态码</h2><p>容器状态码是指http容器的状态码，应用不应该使用或限制使用</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>HTTP Operation</th>
+<th>Body Contents</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>303</td>
+<td>GET</td>
+<td>link</td>
+<td>静态资源被移除,应用限制使用</td>
+</tr>
+<tr>
+<td>503</td>
+<td>GET,PSOT,PUT,DELETE,PATCH</td>
+<td>text body</td>
+<td>服务器宕机</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tips</strong></p>
+<p>4开头的错误用来表达来自于客户端的错误，例如: 未授权，参数缺失。5开头的错误用来表达服务端的错误，例如: 在连接外部系统(DB)发生的IO错误。</p>
+<h2 id="错误信息格式">错误信息格式</h2><p>错误信息应该包含下列内容: </p>
+<ol>
+<li>错误标题 <code>message</code>, 必须 </li>
+<li>错误代码 <code>error code</code>, 必须 </li>
+<li>错误信息 <code>error message</code>, 必须 </li>
+<li>资源 <code>resource</code>, 可选 </li>
+<li>属性 <code>field</code>, 可选 </li>
+<li>文档地址 <code>document</code>, 可选</li>
+</ol>
+<p><strong>Tips</strong></p>
+<p><code>Error Code</code> 尽可能做到简洁明了，提取异常的关键字并且使用下划线_把它们连接起来。</p>
+<p><strong>示例:</strong> 调用频率超过限制，Response:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Headers:</span></span><br><span class="line">    Content-<span class="string">Type:</span> application/json;charset=UTF-<span class="number">8</span></span><br><span class="line">    X-RateLimit-<span class="string">Limit:</span> <span class="number">3000</span></span><br><span class="line">    X-RateLimit-<span class="string">Reset:</span> <span class="number">1403162176516</span></span><br><span class="line">    X-RateLimit-<span class="string">Remaining:</span> <span class="number">0</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"message"</span>: <span class="string">"Message title"</span>,</span><br><span class="line">    <span class="string">"errors"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"code"</span>: <span class="string">"rate_limit_exceeded"</span>,</span><br><span class="line">            <span class="string">"message"</span>: <span class="string">"Too Many Requests. API rate limit exceeded"</span>,</span><br><span class="line">            <span class="string">"document"</span>: <span class="string">"https://developer.github.com/v3/gists/"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="锦上添花">锦上添花</h1><ol>
+<li>格式化(Pettyprint)JSON数据(返回结果)并且使用gzip压缩，Pettyprint易于阅读，多余的空格在经过gzip压缩之后占用空间比压缩之前更小。</li>
+<li>重写<code>Server</code>头</li>
+<li>返回<code>X-Powered-By</code></li>
+</ol>
+<p><strong>Response Headers</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Pretty-Print</span>: <span class="string">true</span></span><br><span class="line"><span class="attribute">Content-Encoding</span>: <span class="string">gzip</span></span><br><span class="line"><span class="attribute">Server</span>: <span class="string">ods@shuyun.com</span></span><br><span class="line"><span class="attribute">X-Powered-By</span>: <span class="string">yanbo.ai;email=yanbo.ai@gmail.com</span></span><br></pre></td></tr></table></figure>
+<h1 id="附页">附页</h1><h2 id="框架&amp;工具">框架&amp;工具</h2><ul>
+<li><a href="http://raml.org/" target="_blank" rel="external">http://raml.org/</a></li>
+<li><a href="https://jersey.java.net/" target="_blank" rel="external">https://jersey.java.net/</a></li>
+<li><a href="https://dropwizard.github.io/dropwizard/" target="_blank" rel="external">https://dropwizard.github.io/dropwizard/</a></li>
+<li><a href="https://github.com/aiyanbo/restful-hub/" target="_blank" rel="external">https://github.com/aiyanbo/restful-hub/</a></li>
+</ul>
+<h2 id="参考资料">参考资料</h2><ul>
+<li><a href="http://restfulobjects.org/" target="_blank" rel="external">http://restfulobjects.org/</a></li>
+<li><a href="https://developer.github.com/v3/" target="_blank" rel="external">https://developer.github.com/v3/</a></li>
+<li><a href="http://tools.ietf.org/html/rfc5988" target="_blank" rel="external">http://tools.ietf.org/html/rfc5988</a></li>
+<li><a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api</a></li>
+<li><a href="https://developer.yahoo.com/social/rest_api_guide/http-response-codes.html" target="_blank" rel="external">https://developer.yahoo.com/social/rest_api_guide/http-response-codes.html</a></li>
+<li><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" target="_blank" rel="external">http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a></li>
+<li><a href="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven" target="_blank" rel="external">http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven</a></li>
+</ul>
+<h2 id="声明">声明</h2><p>本文属于转载:<a href="https://www.zybuluo.com/yanbo-ai/note/17890" target="_blank" rel="external">原文(RESTful Best Practices)</a></p>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Http/"> #Http </a>
+          
+            <a href="/tags/Rest/"> #Rest </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/02/27/Nginx配置小记/">Nginx配置小记</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/02/25/理解本真的REST架构风格/">理解本真的REST架构风格</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/02/26/RESTful最佳实践/"
+               data-title="RESTful最佳实践" data-url="http://arccode.net/2015/02/26/RESTful最佳实践/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哲学"><span class="nav-number">2.</span> <span class="nav-text">哲学</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口路径设计"><span class="nav-number">3.</span> <span class="nav-text">接口路径设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口设计原则"><span class="nav-number">3.1.</span> <span class="nav-text">接口设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URI指向的是唯一的资源对象"><span class="nav-number">3.1.1.</span> <span class="nav-text">URI指向的是唯一的资源对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI可以隐式指向唯一的集合列表"><span class="nav-number">3.1.2.</span> <span class="nav-text">URI可以隐式指向唯一的集合列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合资源必须通过父级资源操作"><span class="nav-number">3.1.3.</span> <span class="nav-text">聚合资源必须通过父级资源操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合资源要避免资源路径嵌套"><span class="nav-number">3.1.4.</span> <span class="nav-text">组合资源要避免资源路径嵌套</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http_Methods"><span class="nav-number">3.2.</span> <span class="nav-text">Http Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL组成"><span class="nav-number">3.3.</span> <span class="nav-text">URL组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL定义限制"><span class="nav-number">3.4.</span> <span class="nav-text">URL定义限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口分类"><span class="nav-number">3.5.</span> <span class="nav-text">接口分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#资源对象的CURD操作"><span class="nav-number">3.5.1.</span> <span class="nav-text">资源对象的CURD操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务型接口"><span class="nav-number">3.5.2.</span> <span class="nav-text">服务型接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设置"><span class="nav-number">3.5.3.</span> <span class="nav-text">系统设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">3.6.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bookmarker"><span class="nav-number">3.7.</span> <span class="nav-text">Bookmarker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HATEOAS"><span class="nav-number">3.8.</span> <span class="nav-text">HATEOAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分页"><span class="nav-number">3.9.</span> <span class="nav-text">分页</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全"><span class="nav-number">4.</span> <span class="nav-text">安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调用限制"><span class="nav-number">4.1.</span> <span class="nav-text">调用限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全验证"><span class="nav-number">4.2.</span> <span class="nav-text">安全验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据设计"><span class="nav-number">5.</span> <span class="nav-text">数据设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#交互原则"><span class="nav-number">5.1.</span> <span class="nav-text">交互原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构"><span class="nav-number">5.2.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性定义限制"><span class="nav-number">5.3.</span> <span class="nav-text">属性定义限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取部分字段"><span class="nav-number">5.4.</span> <span class="nav-text">提取部分字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子对象描述"><span class="nav-number">5.5.</span> <span class="nav-text">子对象描述</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态码&错误处理"><span class="nav-number">6.</span> <span class="nav-text">状态码&错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用状态码"><span class="nav-number">6.1.</span> <span class="nav-text">应用状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器状态码"><span class="nav-number">6.2.</span> <span class="nav-text">容器状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误信息格式"><span class="nav-number">6.3.</span> <span class="nav-text">错误信息格式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锦上添花"><span class="nav-number">7.</span> <span class="nav-text">锦上添花</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附页"><span class="nav-number">8.</span> <span class="nav-text">附页</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#框架&工具"><span class="nav-number">8.1.</span> <span class="nav-text">框架&工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">8.2.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明"><span class="nav-number">8.3.</span> <span class="nav-text">声明</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

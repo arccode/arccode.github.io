@@ -1,0 +1,714 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Java,Javascript,Rest," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> 前后端完全分离之API设计 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              前后端完全分离之API设计
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-04-18
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/18/前后端完全分离之API设计/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/18/前后端完全分离之API设计/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h2 id="背景">背景</h2><p>API就是开发者使用的界面。我的目标不仅是能用，而且好用, 跨平台(PC, Android, IOS, etc…)使用; 本文将详细介绍API的设计及异常处理, 并将异常信息进行封装友好地反馈给前端.</p>
+<p>上篇文章<a href="http://arccode.net/2015/04/08/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E5%88%9D%E6%8E%A2/">前后端完全分离初探</a>只是讲了些宽泛的概念, 接下来的文章将直接上干货, 干货的源码会挂在<code>github</code>上.</p>
+<p>前后端完全分离后, 前端和后端如何交互? </p>
+<p>答: 通过双方协商好的API.</p>
+<p>接下来我分享我自己设计的API接口, 欢迎各位朋友指教.</p>
+<h2 id="API设计理念">API设计理念</h2><ol>
+<li>将涉及的实体抽象成资源, 即按<code>id</code>访问资源, 在<code>url</code>上做文章, 以后再也不用为<code>url</code>起名字而苦恼了.</li>
+<li>使用<code>HTTP</code>动词对资源进行<code>CRUD</code>(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.</li>
+<li>URL命名规则, 对于资源无法使用一个单数名词表示的情况, 我使用中横线(<code>-</code>)连接.<ul>
+<li>资源采用名词命名, e.g: 产品 -&gt; product</li>
+<li>新增资源, e.g: 新增产品, url -&gt; /product ,  verb -&gt; POST</li>
+<li>修改资源, e.g: 修改产品, url -&gt; /products/{id} ,  verb -&gt; PUT</li>
+<li>资源详情, e.g: 指定产品详情, url -&gt; /products/{id} ,  verb -&gt; GET</li>
+<li>删除资源, e.g: 删除产品, url -&gt; /products/{id} ,  verb -&gt; DELETE</li>
+<li>资源列表, e.g: 产品列表, url -&gt; /products ,  verb -&gt; GET</li>
+<li>资源关联关系, e.g: 收藏产品, url -&gt; /products/{id}/star ,  verb -&gt; PUT</li>
+<li>资源关联关系, e.g: 删除收藏产品, url -&gt; /products/{id}/star ,  verb -&gt; DELETE</li>
+</ul>
+</li>
+</ol>
+<p>目前我API的设计只涉及这两点, 至于第三点<code>HATEOAS</code>(Hypermedia As The Engine Of Application State)那就由读者自己去选择了.</p>
+<a id="more"></a>
+<h2 id="项目地址">项目地址</h2><p>本文中只涉及了设计的理念, 具体的实现请下载源码<a href="https://github.com/arccode/rest-api" target="_blank" rel="external">rest-api</a>, 项目内写了比较详细的注释.</p>
+<h2 id="项目实战">项目实战</h2><p>实战将从业务场景出发, 详细介绍如何使用HTTP verb对资源进行操作(<code>状态转移</code>), 使用JSON返回结果(<code>资源表述</code>), 并定义JSON的基础结构.</p>
+<h3 id="JSON结构">JSON结构</h3><p>requestParams: </p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">&#123;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>responseBody: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">  &#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p><code>meta</code>中封装操作成功或失败的消息, <code>data</code>中封装返回的具体数据.</p>
+<p>当新建商品或更新产品时, 相关属性封装在JSON中, 通过POST或PUT发送,</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>当用户对商品进行操作后, 将得到响应结果,</p>
+<p>GET, POST, PUT操作成功, 返回如下结果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">201</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"创建成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">    "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">    "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>DELETE操作成功, 返回如下结果</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">204</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"删除成功"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="业务场景一">业务场景一</h3><p>电商网站的管理员对商品进行新增,编辑,删除,浏览的操作; 暂时不考虑认证授权, 只关注对商品的操作.</p>
+<p>为了以后便于做分布式, 所有资源id(表主键)均采用uuid.</p>
+<h4 id="新增商品">新增商品</h4><p>1, url: <code>/api/product</code></p>
+<p>2, method: <code>POST</code></p>
+<p>3, requestParams: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>4, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">201</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"创建成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">    "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">    "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编辑商品">编辑商品</h4><p>1, url: <code>/api/products/{id}</code></p>
+<p>2, method: <code>PUT</code></p>
+<p>3, requestParams: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">name</span>": <span class="value"><span class="string">"iPhone 6"</span></span>,</span><br><span class="line">  "<span class="attribute">description</span>": <span class="value"><span class="string">"此次苹果发布会发布了iPhone 6与iPhone 6 Plus，搭载iOS 8，尺寸分别是4.7和5.5英寸。外观设计不再棱角分明，表层玻璃边有一个弧度向下延伸，与阳极氧化铝金属机身边框衔接。机身背部采用三段式设计。机身更薄，续航能力更强。"</span></span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>4, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"修改成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">    "<span class="attribute">name</span>": <span class="value"><span class="string">"iPhone 6"</span></span>,</span><br><span class="line">    "<span class="attribute">description</span>": <span class="value"><span class="string">"此次苹果发布会发布了iPhone 6与iPhone 6 Plus，搭载iOS 8，尺寸分别是4.7和5.5英寸。外观设计不再棱角分明，表层玻璃边有一个弧度向下延伸，与阳极氧化铝金属机身边框衔接。机身背部采用三段式设计。机身更薄，续航能力更强。"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="删除商品">删除商品</h4><p>1, url: <code>/api/products/{id}</code></p>
+<p>2, method: <code>DELETE</code></p>
+<p>3, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">204</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"删除成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取商品详情">获取商品详情</h4><p>1, url: <code>/api/products/{id}</code></p>
+<p>2, method: <code>GET</code></p>
+<p>3, responseBody</p>
+<p>删除前</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"查询成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">    "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">    "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<p>删除后</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">404</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"指定产品不存在"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取商品列表(未分页)">获取商品列表(未分页)</h4><p>1, url: <code>/api/products</code></p>
+<p>2, method: <code>GET</code></p>
+<p>3, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"获取全部商品成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">[</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">      "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">    </span>&#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">id</span>": <span class="value"><span class="string">"9db1992a-c342-4ff0-a2a4-aeb3dbfd93f6"</span></span>,</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">      "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">    </span>&#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">id</span>": <span class="value"><span class="string">"4481619b-45c5-4729-9539-f93bb01f10d8"</span></span>,</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"Apple Watch SPORT"</span></span>,</span><br><span class="line">      "<span class="attribute">description</span>": <span class="value"><span class="string">"Sport 系列的表壳材料为轻巧的银色及深空灰色阳极氧化铝金属，强化 Ion-X 玻璃材质为显示屏提供保护。搭配高性能 Fluoroelastomer 表带，共有 5 款缤纷色彩。"</span></span><br><span class="line">    </span>&#125;</span><br><span class="line">  ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="业务场景二">业务场景二</h3><p><code>业务场景一</code>中只涉及了单个资源的操作, 但实际场景中还有些关联操作; 如用户去电商网站浏览商品, 并收藏了一些商品, 之后又取消收藏了部分商品.</p>
+<p>暂时不考虑用户认证授权, 以后加了<code>token</code>后, 用户信息可以从中获取.</p>
+<h4 id="收藏商品">收藏商品</h4><p>1, url: <code>/api/products/{id}/star</code></p>
+<p>2, method: <code>PUT</code></p>
+<p>3, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"收藏商品[5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9]成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">[</span><br><span class="line">    &#123;</span><br><span class="line">      "<span class="attribute">id</span>": <span class="value"><span class="string">"5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9"</span></span>,</span><br><span class="line">      "<span class="attribute">name</span>": <span class="value"><span class="string">"iPhone 6"</span></span>,</span><br><span class="line">      "<span class="attribute">description</span>": <span class="value"><span class="string">"此次苹果发布会发布了iPhone 6与iPhone 6 Plus，搭载iOS 8，尺寸分别是4.7和5.5英寸。外观设计不再棱角分明，表层玻璃边有一个弧度向下延伸，与阳极氧化铝金属机身边框衔接。机身背部采用三段式设计。机身更薄，续航能力更强。"</span></span><br><span class="line">    </span>&#125;</span><br><span class="line">  ]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="取消收藏商品">取消收藏商品</h4><p>1, url: <code>/api/products/{id}/star</code></p>
+<p>2, method: <code>DELETE</code></p>
+<p>3, responseBody</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">200</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"删除收藏商品[5308e9c2-a4ce-4dca-9373-cc1ffe63d5f9]成功"</span></span><br><span class="line">  </span>&#125;</span>,</span><br><span class="line">  "<span class="attribute">data</span>": <span class="value">[]</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义异常和异常处理">自定义异常和异常处理</h2><p>所有自定义异常继承RuntimeException, 在业务层抛出, 统一在Controller层进行处理.</p>
+<p>异常分为全局异常和局部异常, 例如http method unsupported(405), unauthorized(401), accessDenied(403), not found(404)等属于全局异常; 针对对独立业务的一些异常属于局部异常, 例如产品编辑出错; </p>
+<p>异常在Controller中进行处理, 并封装成json返回给前端, 封装后的数据如下, 相关实现见<a href="https://github.com/arccode/rest-api" target="_blank" rel="external">源码</a>;</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">404</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"指定产品不存在"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "<span class="attribute">meta</span>": <span class="value">&#123;</span><br><span class="line">    "<span class="attribute">code</span>": <span class="value"><span class="number">405</span></span>,</span><br><span class="line">    "<span class="attribute">message</span>": <span class="value"><span class="string">"Request method 'POST' not supported"</span></span><br><span class="line">  </span>&#125;</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="项目运行截图部分">项目运行截图部分</h2><p><img src="/images/arc/arc_add.png" alt=""></p>
+<p><img src="/images/arc/arc_list.png" alt=""></p>
+<p><img src="/images/arc/arc_exception.png" alt=""></p>
+<h2 id="本系列文章">本系列文章</h2><ul>
+<li><a href="http://arccode.net/2015/04/08/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E5%88%9D%E6%8E%A2/">前后端完全分离初探</a></li>
+<li><a href="http://arccode.net/2015/04/18/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E4%B9%8BAPI%E8%AE%BE%E8%AE%A1/">前后端完全分离之API设计</a></li>
+<li>前后端完全分离之安全认证与授权-上</li>
+<li>前后端完全分离之安全认证与授权-下</li>
+<li>前后端完全分离之前端模块化开发</li>
+<li>前后端完全分离之前端路由系统</li>
+<li>前后端完全分离之后端面向服务的模块化开发</li>
+</ul>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/Javascript/"> #Javascript </a>
+          
+            <a href="/tags/Rest/"> #Rest </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/23/阿里巴巴分布式服务框架-Dubbo问与答/">阿里巴巴分布式服务框架-Dubbo问与答</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/">SpringSecurity-AntPathMatcher-Rest-Match</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/04/18/前后端完全分离之API设计/"
+               data-title="前后端完全分离之API设计" data-url="http://arccode.net/2015/04/18/前后端完全分离之API设计/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API设计理念"><span class="nav-number">2.</span> <span class="nav-text">API设计理念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">3.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目实战"><span class="nav-number">4.</span> <span class="nav-text">项目实战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON结构"><span class="nav-number">4.1.</span> <span class="nav-text">JSON结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景一"><span class="nav-number">4.2.</span> <span class="nav-text">业务场景一</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新增商品"><span class="nav-number">4.2.1.</span> <span class="nav-text">新增商品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑商品"><span class="nav-number">4.2.2.</span> <span class="nav-text">编辑商品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除商品"><span class="nav-number">4.2.3.</span> <span class="nav-text">删除商品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取商品详情"><span class="nav-number">4.2.4.</span> <span class="nav-text">获取商品详情</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取商品列表(未分页)"><span class="nav-number">4.2.5.</span> <span class="nav-text">获取商品列表(未分页)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务场景二"><span class="nav-number">4.3.</span> <span class="nav-text">业务场景二</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#收藏商品"><span class="nav-number">4.3.1.</span> <span class="nav-text">收藏商品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消收藏商品"><span class="nav-number">4.3.2.</span> <span class="nav-text">取消收藏商品</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义异常和异常处理"><span class="nav-number">5.</span> <span class="nav-text">自定义异常和异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目运行截图部分"><span class="nav-number">6.</span> <span class="nav-text">项目运行截图部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本系列文章"><span class="nav-number">7.</span> <span class="nav-text">本系列文章</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

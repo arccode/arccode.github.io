@@ -1,0 +1,647 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Java,Zookeeper," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Zookeeper搭建集群 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Zookeeper搭建集群
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-11-14
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/中间件/">中间件</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/11/14/Zookeeper搭建集群/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/14/Zookeeper搭建集群/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h2 id="简介">简介</h2><p>ZooKeeper是一个为分布式应用所设计的分布的、开源的协调服务，它主要是用来解决分布式应用中经常遇到的一些数据管理问题，简化分布式应用协调及其管理的难度，提供高性能的分布式服务。ZooKeeper本身可以以Standalone模式安装运行，不过它的长处在于通过分布式ZooKeeper集群（一个Leader，多个Follower），基于一定的策略来保证ZooKeeper集群的稳定性和可用性，从而实现分布式应用的可靠性。</p>
+<p>ZooKeeper是作为分布式协调服务，是不需要依赖于Hadoop的环境，也可以为其他的分布式环境提供服务。</p>
+<a id="more"></a>
+<h2 id="单节点安装">单节点安装</h2><h3 id="下载,解压,配置">下载,解压,配置</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 可能是受Windows影响,首次接触Mac时创建了这个目录用于存放开源框架</span></span><br><span class="line">cd ~/ProgramFiles</span><br><span class="line"><span class="preprocessor"># 个人感觉速度慢, 用迅雷下载该链接更快</span></span><br><span class="line">curl -O http:<span class="comment">//apache.mirrors.tds.net/zookeeper/stable/zookeeper-3.4.6.tar.gz</span></span><br><span class="line"><span class="preprocessor"># 解压</span></span><br><span class="line">tar xzvf zookeeper-<span class="number">3.4</span><span class="number">.6</span>.tar.gz</span><br><span class="line">mv zookeeper-<span class="number">3.4</span><span class="number">.6</span> zookeeper346</span><br><span class="line">cd zookeeper346/conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br><span class="line">vim zoo.cfg</span><br><span class="line"><span class="preprocessor"># 修改内容如下, 需手动创建定义的数据目录</span></span><br><span class="line">dataDir=/Users/arccode/data/zk/nodes/zk0</span><br></pre></td></tr></table></figure>
+<h3 id="启动">启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># zookeeper 可执行文件目录</span></span><br><span class="line"><span class="built_in">cd</span> ../bin</span><br><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
+<p>至此单节点配置,启动完成. </p>
+<h2 id="集群安装">集群安装</h2><h3 id="集群中节点树结构">集群中节点树结构</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">└── nodes</span><br><span class="line">    ├── zk0</span><br><span class="line">    │   └── version-<span class="number">2</span></span><br><span class="line">    │       └── <span class="built_in">log</span><span class="number">.1</span></span><br><span class="line">    ├── zk1</span><br><span class="line">    │   ├── data</span><br><span class="line">    │   │   ├── myid</span><br><span class="line">    │   │   └── version-<span class="number">2</span></span><br><span class="line">    │   │       ├── acceptedEpoch</span><br><span class="line">    │   │       ├── currentEpoch</span><br><span class="line">    │   │       └── snapshot<span class="number">.0</span></span><br><span class="line">    │   └── logs</span><br><span class="line">    │       └── version-<span class="number">2</span></span><br><span class="line">    │           └── <span class="built_in">log</span><span class="number">.100000001</span></span><br><span class="line">    ├── zk2</span><br><span class="line">    │   ├── data</span><br><span class="line">    │   │   ├── myid</span><br><span class="line">    │   │   └── version-<span class="number">2</span></span><br><span class="line">    │   │       ├── acceptedEpoch</span><br><span class="line">    │   │       └── currentEpoch</span><br><span class="line">    │   └── logs</span><br><span class="line">    │       └── version-<span class="number">2</span></span><br><span class="line">    │           └── <span class="built_in">log</span><span class="number">.100000001</span></span><br><span class="line">    └── zk3</span><br><span class="line">        ├── data</span><br><span class="line">        │   ├── myid</span><br><span class="line">        │   └── version-<span class="number">2</span></span><br><span class="line">        │       ├── acceptedEpoch</span><br><span class="line">        │       ├── currentEpoch</span><br><span class="line">        │       └── snapshot<span class="number">.100000000</span></span><br><span class="line">        └── logs</span><br><span class="line">            └── version-<span class="number">2</span></span><br><span class="line">                └── <span class="built_in">log</span><span class="number">.100000001</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置节点一">配置节点一</h3><p>不解释, 直接上配置文件(/Users/arccode/ProgramFiles/zookeeper346/conf/zk1.cfg)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/Users/arccode/data/zk/nodes/zk1/data</span><br><span class="line">dataLogDir=/Users/arccode/data/zk/nodes/zk1/logs</span><br><span class="line">clientPort=<span class="number">2181</span></span><br><span class="line"><span class="preprocessor"># 集群实例</span></span><br><span class="line">server<span class="number">.1</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.2</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2889</span>:<span class="number">3889</span></span><br><span class="line">server<span class="number">.3</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2890</span>:<span class="number">3890</span></span><br></pre></td></tr></table></figure>
+<p>根据dataDir,dataLogDir创建相应的目录并在data目录执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="number">1</span> &gt; myid</span><br></pre></td></tr></table></figure>
+<h3 id="配置节点二">配置节点二</h3><p>不解释, 直接上配置文件(/Users/arccode/ProgramFiles/zookeeper346/conf/zk2.cfg)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/Users/arccode/data/zk/nodes/zk2/data</span><br><span class="line">dataLogDir=/Users/arccode/data/zk/nodes/zk2/logs</span><br><span class="line">clientPort=<span class="number">2182</span></span><br><span class="line"><span class="preprocessor"># 集群实例</span></span><br><span class="line">server<span class="number">.1</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.2</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2889</span>:<span class="number">3889</span></span><br><span class="line">server<span class="number">.3</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2890</span>:<span class="number">3890</span></span><br></pre></td></tr></table></figure>
+<p>根据dataDir,dataLogDir创建相应的目录并在data目录执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="number">2</span> &gt; myid</span><br></pre></td></tr></table></figure>
+<h3 id="配置节点三">配置节点三</h3><p>不解释, 直接上配置文件(/Users/arccode/ProgramFiles/zookeeper346/conf/zk3.cfg)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/Users/arccode/data/zk/nodes/zk3/data</span><br><span class="line">dataLogDir=/Users/arccode/data/zk/nodes/zk3/logs</span><br><span class="line">clientPort=<span class="number">2183</span></span><br><span class="line"><span class="preprocessor"># 集群实例</span></span><br><span class="line">server<span class="number">.1</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2888</span>:<span class="number">3888</span></span><br><span class="line">server<span class="number">.2</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2889</span>:<span class="number">3889</span></span><br><span class="line">server<span class="number">.3</span>=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2890</span>:<span class="number">3890</span></span><br></pre></td></tr></table></figure>
+<p>根据dataDir,dataLogDir创建相应的目录并在data目录执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="number">3</span> &gt; myid</span><br></pre></td></tr></table></figure>
+<h3 id="启动Zookeeper集群">启动Zookeeper集群</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># zookeeper可执行文件目录</span></span><br><span class="line">cd bin</span><br><span class="line">./zkServer.sh <span class="literal">start</span> zk1.cfg</span><br><span class="line">./zkServer.sh <span class="literal">start</span> zk2.cfg</span><br><span class="line">./zkServer.sh <span class="literal">start</span> zk3.cfg</span><br></pre></td></tr></table></figure>
+<h3 id="查看Zookeeper集群中各个节点的状态">查看Zookeeper集群中各个节点的状态</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status zk1.cfg</span><br><span class="line"></span><br><span class="line">JMX enabled by <span class="keyword">default</span></span><br><span class="line">Using <span class="string">config:</span> <span class="regexp">/Users/</span>arccode<span class="regexp">/ProgramFiles/</span>zookeeper346<span class="regexp">/bin/</span>..<span class="regexp">/conf/</span>zk1.cfg</span><br><span class="line"><span class="string">Mode:</span> follower</span><br><span class="line"></span><br><span class="line">./zkServer.sh status zk2.cfg</span><br><span class="line"></span><br><span class="line">JMX enabled by <span class="keyword">default</span></span><br><span class="line">Using <span class="string">config:</span> <span class="regexp">/Users/</span>arccode<span class="regexp">/ProgramFiles/</span>zookeeper346<span class="regexp">/bin/</span>..<span class="regexp">/conf/</span>zk2.cfg</span><br><span class="line"><span class="string">Mode:</span> leader</span><br><span class="line"></span><br><span class="line">./zkServer.sh status zk3.cfg</span><br><span class="line"></span><br><span class="line">JMX enabled by <span class="keyword">default</span></span><br><span class="line">Using <span class="string">config:</span> <span class="regexp">/Users/</span>arccode<span class="regexp">/ProgramFiles/</span>zookeeper346<span class="regexp">/bin/</span>..<span class="regexp">/conf/</span>zk3.cfg</span><br><span class="line"><span class="string">Mode:</span> follower</span><br></pre></td></tr></table></figure>
+<p>注: 可以考虑多种启动或停止zookeeper的情况进行状态查看, 可发现zookeeper的高可用(HA);</p>
+<h2 id="命令行操作">命令行操作</h2><p>使用命令行client连接zookeeper并操作API</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 连接到任意节点</span></span><br><span class="line"> ./zkCli.sh -server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">2182</span></span><br><span class="line"><span class="preprocessor"># help 查看指令</span></span><br><span class="line">ZooKeeper -server host:port cmd args</span><br><span class="line">	connect host:port</span><br><span class="line">	get path [watch]</span><br><span class="line">	ls path [watch]</span><br><span class="line">	<span class="built_in">set</span> path data [version]</span><br><span class="line">	rmr path</span><br><span class="line">	delquota [-n|-b] path</span><br><span class="line">	quit </span><br><span class="line">	printwatches on|off</span><br><span class="line">	create [-s] [-e] path data acl</span><br><span class="line">	stat path [watch]</span><br><span class="line">	close </span><br><span class="line">	ls2 path [watch]</span><br><span class="line">	history </span><br><span class="line">	listquota path</span><br><span class="line">	setAcl path acl</span><br><span class="line">	getAcl path</span><br><span class="line">	sync path</span><br><span class="line">	redo cmdno</span><br><span class="line">	addauth scheme auth</span><br><span class="line">	<span class="keyword">delete</span> path [version]</span><br><span class="line">	setquota -n|-b val path</span><br><span class="line"><span class="preprocessor"># 查看/目录节点</span></span><br><span class="line">ls /</span><br><span class="line"><span class="preprocessor"># 创建znode节点</span></span><br><span class="line">create /config db.properties</span><br><span class="line"><span class="preprocessor"># 查看/下节点, ls /</span></span><br><span class="line">[config, zookeeper]</span><br><span class="line"><span class="preprocessor"># 查看节点内容, get /config</span></span><br><span class="line">db.properties</span><br><span class="line">cZxid = <span class="number">0x300000011</span></span><br><span class="line">ctime = Fri Nov <span class="number">14</span> <span class="number">23</span>:<span class="number">05</span>:<span class="number">05</span> CST <span class="number">2014</span></span><br><span class="line">mZxid = <span class="number">0x300000011</span></span><br><span class="line">mtime = Fri Nov <span class="number">14</span> <span class="number">23</span>:<span class="number">05</span>:<span class="number">05</span> CST <span class="number">2014</span></span><br><span class="line">pZxid = <span class="number">0x300000011</span></span><br><span class="line">cversion = <span class="number">0</span></span><br><span class="line">dataVersion = <span class="number">0</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0x0</span></span><br><span class="line">dataLength = <span class="number">13</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line"><span class="preprocessor"># 修改节点内容, set /config db2.properties</span></span><br><span class="line"><span class="preprocessor"># 再次查看 get /config</span></span><br><span class="line">db2.properties</span><br><span class="line">cZxid = <span class="number">0x300000011</span></span><br><span class="line">ctime = Fri Nov <span class="number">14</span> <span class="number">23</span>:<span class="number">05</span>:<span class="number">05</span> CST <span class="number">2014</span></span><br><span class="line">mZxid = <span class="number">0x300000012</span></span><br><span class="line">mtime = Fri Nov <span class="number">14</span> <span class="number">23</span>:<span class="number">08</span>:<span class="number">10</span> CST <span class="number">2014</span></span><br><span class="line">pZxid = <span class="number">0x300000011</span></span><br><span class="line">cversion = <span class="number">0</span></span><br><span class="line">dataVersion = <span class="number">1</span></span><br><span class="line">aclVersion = <span class="number">0</span></span><br><span class="line">ephemeralOwner = <span class="number">0x0</span></span><br><span class="line">dataLength = <span class="number">14</span></span><br><span class="line">numChildren = <span class="number">0</span></span><br><span class="line"><span class="preprocessor"># 删除节点, delete /config</span></span><br><span class="line"><span class="preprocessor"># 查看, ls /</span></span><br><span class="line"><span class="preprocessor"># 退出, quit</span></span><br></pre></td></tr></table></figure>
+<h2 id="Java操作">Java操作</h2><h3 id="源码">源码</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ts.zookeeper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.CreateMode;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.KeeperException;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.WatchedEvent;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.Watcher;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooDefs.Ids;</span><br><span class="line"><span class="keyword">import</span> org.apache.zookeeper.ZooKeeper;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Java 操作zookeeper API</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> class Main</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main( <span class="keyword">String</span>[] args ) <span class="keyword">throws</span> IOException, InterruptedException, KeeperException</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="comment">// 创建连接</span></span><br><span class="line">    	ZooKeeper zk = <span class="keyword">new</span> ZooKeeper(<span class="string">"127.0.0.1:2182"</span>, <span class="number">30000</span>, <span class="keyword">new</span> Watcher()&#123;</span><br><span class="line">    		<span class="comment">// 监听的事件发生变化时, 调用该函数</span></span><br><span class="line">			<span class="keyword">public</span> <span class="keyword">void</span> process(WatchedEvent event) &#123;</span><br><span class="line">				System.out.<span class="built_in">println</span>(<span class="string">"Event emit -&gt; "</span> + event.getType());</span><br><span class="line">			&#125;</span><br><span class="line">    	&#125;);</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">// 查看根目录, ls /</span></span><br><span class="line">    	System.out.<span class="built_in">println</span>(<span class="string">"[line: 29]command: ls / -&gt; "</span> + zk.getChildren(<span class="string">"/"</span>, <span class="keyword">true</span>));</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">// 创建数据节点config</span></span><br><span class="line">    	<span class="keyword">if</span>(zk.exists(<span class="string">"/config"</span>, <span class="keyword">true</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">    		zk.create(<span class="string">"/config"</span>, <span class="string">"db.properties"</span>.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);</span><br><span class="line">    		</span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"创建数据节点config成功."</span>);</span><br><span class="line">    		</span><br><span class="line">    		<span class="comment">// 查看数据节点数据</span></span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"[line: 38]command get /config: "</span> + <span class="keyword">new</span> <span class="keyword">String</span>(zk.getData(<span class="string">"/config"</span>, <span class="keyword">true</span>, <span class="keyword">null</span>)));</span><br><span class="line">    		</span><br><span class="line">    		<span class="comment">// 查看根目录, ls /</span></span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"[line: 41]command: ls / -&gt; "</span> + zk.getChildren(<span class="string">"/"</span>, <span class="keyword">true</span>));</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">// 修改数据节点</span></span><br><span class="line">    	<span class="keyword">if</span>(zk.exists(<span class="string">"/config"</span>, <span class="keyword">true</span>) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    		zk.setData(<span class="string">"/config"</span>, <span class="string">"db2.properteis"</span>.getBytes(), -<span class="number">1</span>);</span><br><span class="line">    		<span class="comment">// 查看数据节点数据</span></span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"[line: 48]command get /config: "</span> + <span class="keyword">new</span> <span class="keyword">String</span>(zk.getData(<span class="string">"/config"</span>, <span class="keyword">true</span>, <span class="keyword">null</span>)));</span><br><span class="line">    		<span class="comment">// 查看根目录, ls /</span></span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"[line: 50]command: ls / -&gt; "</span> + zk.getChildren(<span class="string">"/"</span>, <span class="keyword">true</span>));</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">// 删除数据节点</span></span><br><span class="line">    	<span class="keyword">if</span>(zk.exists(<span class="string">"/config"</span>, <span class="keyword">true</span>) != <span class="keyword">null</span>) &#123;</span><br><span class="line">    		zk.delete(<span class="string">"/config"</span>, -<span class="number">1</span>);</span><br><span class="line">    		<span class="comment">// 查看根目录, ls /</span></span><br><span class="line">    		System.out.<span class="built_in">println</span>(<span class="string">"[line: 57]command: ls / -&gt; "</span> + zk.getChildren(<span class="string">"/"</span>, <span class="keyword">true</span>));</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="comment">// 关闭连接</span></span><br><span class="line">    	zk.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="结果">结果</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Event emit -&gt; None</span><br><span class="line">[<span class="string">line:</span> <span class="number">29</span>]<span class="string">command:</span> ls / -&gt; [zookeeper]</span><br><span class="line">Event emit -&gt; NodeCreated</span><br><span class="line">Event emit -&gt; NodeChildrenChanged</span><br><span class="line">创建数据节点config成功.</span><br><span class="line">[<span class="string">line:</span> <span class="number">38</span>]command get /<span class="string">config:</span> db.properties</span><br><span class="line">[<span class="string">line:</span> <span class="number">41</span>]<span class="string">command:</span> ls / -&gt; [config, zookeeper]</span><br><span class="line">Event emit -&gt; NodeDataChanged</span><br><span class="line">[<span class="string">line:</span> <span class="number">48</span>]command get /<span class="string">config:</span> db2.properteis</span><br><span class="line">[<span class="string">line:</span> <span class="number">50</span>]<span class="string">command:</span> ls / -&gt; [config, zookeeper]</span><br><span class="line">Event emit -&gt; NodeDeleted</span><br><span class="line">Event emit -&gt; NodeChildrenChanged</span><br><span class="line">[<span class="string">line:</span> <span class="number">57</span>]<span class="string">command:</span> ls / -&gt; [zookeeper]</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><p><a href="http://blog.fens.me/hadoop-zookeeper-intro/" target="_blank" rel="external">ZooKeeper伪分布式集群安装及使用</a></p>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/Zookeeper/"> #Zookeeper </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/12/26/初识Gradle系列一/">初识Gradle系列一</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/07/mongoose入门/">mongoose入门</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2014/11/14/Zookeeper搭建集群/"
+               data-title="Zookeeper搭建集群" data-url="http://arccode.net/2014/11/14/Zookeeper搭建集群/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单节点安装"><span class="nav-number">2.</span> <span class="nav-text">单节点安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载,解压,配置"><span class="nav-number">2.1.</span> <span class="nav-text">下载,解压,配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">2.2.</span> <span class="nav-text">启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群安装"><span class="nav-number">3.</span> <span class="nav-text">集群安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群中节点树结构"><span class="nav-number">3.1.</span> <span class="nav-text">集群中节点树结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置节点一"><span class="nav-number">3.2.</span> <span class="nav-text">配置节点一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置节点二"><span class="nav-number">3.3.</span> <span class="nav-text">配置节点二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置节点三"><span class="nav-number">3.4.</span> <span class="nav-text">配置节点三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Zookeeper集群"><span class="nav-number">3.5.</span> <span class="nav-text">启动Zookeeper集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Zookeeper集群中各个节点的状态"><span class="nav-number">3.6.</span> <span class="nav-text">查看Zookeeper集群中各个节点的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行操作"><span class="nav-number">4.</span> <span class="nav-text">命令行操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java操作"><span class="nav-number">5.</span> <span class="nav-text">Java操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#源码"><span class="nav-number">5.1.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">5.2.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

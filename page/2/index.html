@@ -1,0 +1,1263 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/05/23/阿里巴巴分布式服务框架-Dubbo问与答/">
+                阿里巴巴分布式服务框架-Dubbo问与答
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-23
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/中间件/">中间件</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/23/阿里巴巴分布式服务框架-Dubbo问与答/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/23/阿里巴巴分布式服务框架-Dubbo问与答/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>Dubbo是阿里巴巴内部的SOA服务化治理方案的核心框架，每天为2000+ 个服务提供3,000,000,000+ 次访问量支持，并被广泛应用于阿里巴巴集团的各成员站点。Dubbo自2011年开源后，已被许多非阿里系公司使用。</p>
+<p>项目主页：<a href="http://dubbo.io/Home-zh.htm">http://dubbo.io/Home-zh.htm</a></p>
+<h2 id="先来个自我介绍吧！">先来个自我介绍吧！</h2><p>我叫梁飞，花名虚极，之前负责Dubbo服务框架，现已调到天猫。</p>
+<p>我的博客：<a href="http://javatar.iteye.com">http://javatar.iteye.com</a></p>
+<h2 id="Dubbo是什么？能做什么？">Dubbo是什么？能做什么？</h2><p>Dubbo是一个分布式服务框架，以及SOA治理方案。其功能主要包括：高性能NIO通讯及多协议集成，服务动态寻址与路由，软负载均衡与容错，依赖分析与降级等。</p>
+<p>可参见：<a href="http://alibaba.github.io/dubbo-doc-static/Home-zh.htm">http://alibaba.github.io/dubbo-doc-static/Home-zh.htm</a></p>
+<h2 id="Dubbo适用于哪些场景？">Dubbo适用于哪些场景？</h2><p>当网站变大后，不可避免的需要拆分应用进行服务化，以提高开发效率，调优性能，节省关键竞争资源等。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/23/阿里巴巴分布式服务框架-Dubbo问与答/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/04/18/前后端完全分离之API设计/">
+                前后端完全分离之API设计
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-04-18
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/18/前后端完全分离之API设计/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/18/前后端完全分离之API设计/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>API就是开发者使用的界面。我的目标不仅是能用，而且好用, 跨平台(PC, Android, IOS, etc…)使用; 本文将详细介绍API的设计及异常处理, 并将异常信息进行封装友好地反馈给前端.</p>
+<p>上篇文章<a href="http://arccode.net/2015/04/08/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E5%88%9D%E6%8E%A2/">前后端完全分离初探</a>只是讲了些宽泛的概念, 接下来的文章将直接上干货, 干货的源码会挂在<code>github</code>上.</p>
+<p>前后端完全分离后, 前端和后端如何交互? </p>
+<p>答: 通过双方协商好的API.</p>
+<p>接下来我分享我自己设计的API接口, 欢迎各位朋友指教.</p>
+<h2 id="API设计理念">API设计理念</h2><ol>
+<li>将涉及的实体抽象成资源, 即按<code>id</code>访问资源, 在<code>url</code>上做文章, 以后再也不用为<code>url</code>起名字而苦恼了.</li>
+<li>使用<code>HTTP</code>动词对资源进行<code>CRUD</code>(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.</li>
+<li>URL命名规则, 对于资源无法使用一个单数名词表示的情况, 我使用中横线(<code>-</code>)连接.<ul>
+<li>资源采用名词命名, e.g: 产品 -&gt; product</li>
+<li>新增资源, e.g: 新增产品, url -&gt; /product ,  verb -&gt; POST</li>
+<li>修改资源, e.g: 修改产品, url -&gt; /products/{id} ,  verb -&gt; PUT</li>
+<li>资源详情, e.g: 指定产品详情, url -&gt; /products/{id} ,  verb -&gt; GET</li>
+<li>删除资源, e.g: 删除产品, url -&gt; /products/{id} ,  verb -&gt; DELETE</li>
+<li>资源列表, e.g: 产品列表, url -&gt; /products ,  verb -&gt; GET</li>
+<li>资源关联关系, e.g: 收藏产品, url -&gt; /products/{id}/star ,  verb -&gt; PUT</li>
+<li>资源关联关系, e.g: 删除收藏产品, url -&gt; /products/{id}/star ,  verb -&gt; DELETE</li>
+</ul>
+</li>
+</ol>
+<p>目前我API的设计只涉及这两点, 至于第三点<code>HATEOAS</code>(Hypermedia As The Engine Of Application State)那就由读者自己去选择了.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/18/前后端完全分离之API设计/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/">
+                SpringSecurity-AntPathMatcher-Rest-Match
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-04-14
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="简介">简介</h2><p>使用Spring的AntPathMatch对RESTful的URL进行匹配.</p>
+<h2 id="匹配规则">匹配规则</h2><p>ANT方式的通配符有三种：</p>
+<ul>
+<li><code>?   匹配任何单字符</code></li>
+<li><code>*   匹配0或者任意数量的字符</code></li>
+<li><code>**  匹配0或者更多的目录</code></li>
+</ul>
+<p>注: 所有的通配符均不包含路径分隔符<code>/</code>.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/04/08/前后端完全分离初探/">
+                前后端完全分离初探
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-04-08
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/08/前后端完全分离初探/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/08/前后端完全分离初探/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="核心思路">核心思路</h2><p>后端负责业务逻辑处理, 前端负责展示逻辑的处理.</p>
+<h2 id="背景">背景</h2><ul>
+<li><p>2013年3月,首次接触了<a href="http://underscorejs.org/">underscore.js</a>这个区区45k大小的js库, 在使用其提供的简单模板完成表格异步分页后,从此我开始慢慢践行前后端完全分离的架构.</p>
+</li>
+<li><p>2013年7月,我接触到了REST这种重用HTTP应用协议的架构, 更坚定了我践行前后端分离的决心.</p>
+</li>
+<li><p>2014年3月,国内刮起了nodeJS的风暴, 此时我采用国外的一个开源项目<a href="http://mean.io/">MEAN</a>开发了一套完整的CMS系统, 此次开发学习到了API接口如何标准化, API具体的设计参考了<a href="https://developer.github.com/v3/">github API</a>, <a href="https://instagram.com/developer/endpoints/">Instagram API</a>.</p>
+</li>
+<li><p>2015年1月, 公司开发新产品, 需要新开发一套支持平台及数据下发平台, 在该产品中我主要参与API的设计, 并主导开发支撑平台, 下面我就介绍下这套支撑平台.</p>
+</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/08/前后端完全分离初探/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/03/06/冒泡型事件和捕获型事件/">
+                冒泡型事件和捕获型事件
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-03-06
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Javascript/">Javascript</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/03/06/冒泡型事件和捕获型事件/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/06/冒泡型事件和捕获型事件/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p>冒泡型事件的基本思想是、事件按照从最特定的事件目标到最不特定的事件目标(document对象)的顺序触发。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="title">title</span>&gt;</span><span class="tag">&lt;/<span class="title">title</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span> <span class="attribute">onclick</span>=<span class="value">"theClick()"</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">onclick</span>=<span class="value">"theClick()"</span>&gt;</span>点击<span class="tag">&lt;/<span class="title">div</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span>   </span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/06/冒泡型事件和捕获型事件/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/03/01/致我们即将逝去的高中/">
+                致我们即将逝去的高中
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-03-01
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/图集/">图集</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/03/01/致我们即将逝去的高中/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/01/致我们即将逝去的高中/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p><strong>看见一位朋友画了这篇漫画, 深有体会, 特此转载到该博文, 其实除了高中, 我们的初中又何尝不是如此呢!</strong></p>
+<p><strong>以前我们嚷着不想上课，以后，我们再也不用上课了……</strong></p>
+<h6 id="三年前，懵懂的我们踏进了校园。">三年前，懵懂的我们踏进了校园。</h6><p><img src="/images/cartoon/zhi_gao_zhong_1.jpeg" alt=""></p>
+<h6 id="不解释。">不解释。</h6><p><img src="/images/cartoon/zhi_gao_zhong_2.jpeg" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/01/致我们即将逝去的高中/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/02/28/图集/">
+                图集
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-28
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/图集/">图集</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/28/图集/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/28/图集/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p><strong>今天看了些图片, 觉得很唯美, 特制作该图集, 用于收集唯美之图</strong></p>
+<h6 id="妈妈(这个世界上最美的女人)">妈妈(这个世界上最美的女人)</h6><p><img src="/images/pics/pic_1.jpg" alt=""></p>
+<h6 id="人生最可悲的事情，莫过于胸怀大志，却又虚度光阴。">人生最可悲的事情，莫过于胸怀大志，却又虚度光阴。</h6><p><img src="/images/pics/pic_2.jpg" alt=""></p>
+<h6 id="用叶子来诠释生命的循环，从诞生到死亡，直至腐烂，人生如是。">用叶子来诠释生命的循环，从诞生到死亡，直至腐烂，人生如是。</h6><p><img src="/images/pics/pic_3.jpg" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/28/图集/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/02/28/Git-简明指南/">
+                Git-简明指南
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-28
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/版本控制/">版本控制</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/28/Git-简明指南/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/28/Git-简明指南/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p>助你入门 git 的简明指南，木有高深内容 ;)</p>
+<h2 id="安装">安装</h2><p><a href="http://code.google.com/p/git-osx-installer/downloads/list?can=3">下载 git OSX 版</a></p>
+<p><a href="http://msysgit.github.io/">下载 git Windows 版</a></p>
+<p><a href="http://book.git-scm.com/2_installing_git.html">下载 git Linux 版</a></p>
+<h2 id="工作流程图">工作流程图</h2><h3 id="概要">概要</h3><p><img src="/images/git_operate_pic_1.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/28/Git-简明指南/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/02/27/Nginx配置小记/">
+                Nginx配置小记
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-27
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/服务器/">服务器</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/27/Nginx配置小记/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/27/Nginx配置小记/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>之前一直使用Apache做静态资源私服及反向代理, 配置稍显复杂, 今天使用nginx来替换Apache, 在此小记一下探索的过程及碰到的问题.</p>
+<h2 id="安装">安装</h2><p>本人使用Mac系统, 偷懒的使用了homebrew, 一键完成了安装. 对于其它<code>OS</code>使用解压<code>zip</code>的方式.</p>
+<p>下面从安装–&gt;配置(静态资源私服 php 反向代理)–&gt;问题展开吧</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/27/Nginx配置小记/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/02/26/RESTful最佳实践/">
+                RESTful最佳实践
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-02-26
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/02/26/RESTful最佳实践/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/02/26/RESTful最佳实践/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h1 id="背景">背景</h1><p>此文为实践总结，是自己在实践过程中积累的经验和”哲学”。部分内容参考相关资料，参考内容请看尾页。建议对RESTful有一定了解者阅读!</p>
+<h1 id="哲学">哲学</h1><ul>
+<li>不要为了RESTful而RESTful</li>
+<li>在能表达清楚的情况下，简单就是美</li>
+</ul>
+<h1 id="接口路径设计">接口路径设计</h1><h2 id="接口设计原则">接口设计原则</h2><h3 id="URI指向的是唯一的资源对象">URI指向的是唯一的资源对象</h3><p><strong>示例:</strong> 指向ID为<code>yanbo.ai</code>的<code>Account</code>对象</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/accounts/yanbo.ai</span><br></pre></td></tr></table></figure>
+<h3 id="URI可以隐式指向唯一的集合列表">URI可以隐式指向唯一的集合列表</h3><p><strong>示例:</strong> 隐式地指向trades list 集合</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET http://~/<span class="variable">$version</span>/trades/(list)</span><br><span class="line">等同于</span><br><span class="line">GET http://~/<span class="variable">$version</span>/trades</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/26/RESTful最佳实践/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+  </div>
+
+  
+  <div class="pagination">
+    <a class="extend prev" rel="prev" href="/">&laquo;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">&raquo;</a>
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

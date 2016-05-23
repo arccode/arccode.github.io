@@ -1,0 +1,1350 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/30/Zookeeper实战一/">
+                Zookeeper实战一
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-30
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/中间件/">中间件</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/30/Zookeeper实战一/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/30/Zookeeper实战一/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h1 id="Zookeeper集群搭建">Zookeeper集群搭建</h1><p>文中提到<code>切换用户</code>: 表明未切换的状态下是root用户</p>
+<h2 id="创建用户组_用户_Zookeeper数据目录">创建用户组 用户 Zookeeper数据目录</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 添加组</span></span><br><span class="line"><span class="title">groupadd</span> zk</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 在组zk中添加用户</span></span><br><span class="line"><span class="title">useradd</span> -g zk zk</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 修改密码</span></span><br><span class="line"><span class="title">passwd</span> zk</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 创建数据目录</span></span><br><span class="line"><span class="title">mkdir</span> -p /<span class="typedef"><span class="keyword">data</span>/zookeeper</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 修改权限</span></span><br><span class="line"><span class="title">chown</span> -<span class="type">R</span> zk:zk /<span class="typedef"><span class="keyword">data</span>/zookeeper</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 切换用户</span></span><br><span class="line"><span class="title">su</span> zk</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 创建data dir 及 log dir</span></span><br><span class="line"><span class="title">mkdir</span> /<span class="typedef"><span class="keyword">data</span>/zookeeper/<span class="keyword">data</span></span></span><br><span class="line"><span class="title">mkdir</span> /<span class="typedef"><span class="keyword">data</span>/zookeeper/log</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/30/Zookeeper实战一/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/30/Kafka实战一/">
+                Kafka实战一
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-30
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/队列/">队列</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/30/Kafka实战一/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/30/Kafka实战一/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h1 id="Kafka实战一">Kafka实战一</h1><h2 id="搭建环境">搭建环境</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 下载安装包</span></span><br><span class="line">http:<span class="comment">//mirror.nus.edu.sg/apache/kafka/0.8.1.1/kafka_2.10-0.8.1.1.tgz</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 上传到Linux /home</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 解压</span></span><br><span class="line">tar xzf kafka_2<span class="number">.10</span>-<span class="number">0.8</span><span class="number">.1</span><span class="number">.1</span>.tgz -C /usr/local</span><br><span class="line">cd /usr/local</span><br><span class="line">mv kafka_2<span class="number">.10</span>-<span class="number">0.8</span><span class="number">.1</span><span class="number">.1</span> kafka</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 启动 Zookeeper</span></span><br><span class="line">cd kafka</span><br><span class="line">./zookeeper-server-start.sh config/zookeeper.properties</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 启动 Kafka</span></span><br><span class="line">./kafka-server-start.sh config/server.properties</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/30/Kafka实战一/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/22/Maven常见问题/">
+                Maven常见问题
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-22
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/问题集锦/">问题集锦</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/22/Maven常见问题/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/22/Maven常见问题/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <ol>
+<li><p>命令行执行<code>mvn clean package</code>–&gt; 编码 EUC_CN 的不可映射字符,在Myeclipse下执行命令无此问题</p>
+<ul>
+<li>原因: 命令行编码使用<code>GBK</code>,而代码文件使用<code>UTF-8</code>编码</li>
+<li><p>解决方案:</p>
+<ul>
+<li>方案一: 将命令行编码改为<code>UTF-8</code></li>
+<li>方案二: 在pom.xml中指定使用<code>UTF-8</code>进行文件拷贝,编译</li>
+<li><p>例如:         </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/22/Maven常见问题/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/21/阿里云CentOS搭建MEAN/">
+                阿里云CentOS搭建MEAN
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-21
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/21/阿里云CentOS搭建MEAN/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/21/阿里云CentOS搭建MEAN/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="购买主机">购买主机</h2><p>看个人爱好，本人购买阿里云主机，最低配置55元/月</p>
+<h2 id="安装相关模块">安装相关模块</h2><ol>
+<li>在阿里云管理控制台启动购买的云主机</li>
+<li>使用<code>zoc6</code>连接服务器</li>
+<li><p>更新软件 <code>yum -y update</code></p>
+</li>
+<li><p>安装开发工具 <code>yum -y groupinstall &quot;Development Tools&quot;</code></p>
+</li>
+<li>下载Node源码<ul>
+<li>cd /usr/src</li>
+<li>wget <a href="http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz">http://nodejs.org/dist/v0.10.32/node-v0.10.32.tar.gz</a></li>
+</ul>
+</li>
+<li>安装Node<ul>
+<li>解压node-v0.10.32.tar.gz</li>
+<li>cd node-v0.10.32</li>
+<li>./configure</li>
+<li>make</li>
+<li>make install</li>
+<li>*注：编译后的二进制文件会放置于系统路径下<code>/usr/local/bin/node</code></li>
+</ul>
+</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/21/阿里云CentOS搭建MEAN/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/21/Linux指令/">
+                Linux指令
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-21
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Linux/">Linux</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/21/Linux指令/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/21/Linux指令/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="常用">常用</h2><table>
+<thead>
+<tr>
+<th>Description</th>
+<th>instruct</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>修改日期</td>
+<td>date -s “2014-01-01 00:00:00”</td>
+<td></td>
+</tr>
+<tr>
+<td>同步指定服务器日期</td>
+<td>ntpdate 3.cn.pool.ntp.org</td>
+<td></td>
+</tr>
+<tr>
+<td>查看文件编码</td>
+<td>set fileencoding</td>
+<td></td>
+</tr>
+<tr>
+<td>查看端口占用情况</td>
+<td>netstat -an grep 3306</td>
+<td>netstat命令</td>
+</tr>
+<tr>
+<td>查看文件使用情况</td>
+<td>lsof -i:80</td>
+<td>-i参数表示网络链接，:80指明端口号，该命令会同时列出PID，方便kill</td>
+</tr>
+<tr>
+<td>查看端口使用</td>
+<td>lsof -w -n -i tcp:8080</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="Vim">Vim</h2><table>
+<thead>
+<tr>
+<th>Description</th>
+<th>instruct</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复制一行</td>
+<td>yy</td>
+</tr>
+<tr>
+<td>粘贴</td>
+<td>p</td>
+</tr>
+<tr>
+<td>删除一行</td>
+<td>dd</td>
+</tr>
+<tr>
+<td>文章底部</td>
+<td>shift + g</td>
+</tr>
+<tr>
+<td>文章首部</td>
+<td>gg</td>
+</tr>
+<tr>
+<td>行首</td>
+<td>0</td>
+</tr>
+<tr>
+<td>行末</td>
+<td>shift + $</td>
+</tr>
+<tr>
+<td>下一页</td>
+<td>control + f</td>
+</tr>
+<tr>
+<td>上一页</td>
+<td>control + b</td>
+</tr>
+</tbody>
+</table>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/21/Linux指令/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/21/Redis指令/">
+                Redis指令
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-21
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/指令/">指令</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/21/Redis指令/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/21/Redis指令/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <ul>
+<li>按前缀删除key: <code>redis-cli KEYS &quot;user*&quot; | xargs redis-cli DEL</code></li>
+<li>删除当前数据库的所有key: <code>flushdb</code></li>
+<li>删除所有数据库中的key: <code>flushall</code></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/21/Redis指令/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/21/Maven指令/">
+                Maven指令
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-21
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/指令/">指令</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/21/Maven指令/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/21/Maven指令/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="指令">指令</h2><ul>
+<li>清空： <code>mvn clean</code></li>
+<li>编译： <code>mvn compile</code></li>
+<li>打包： <code>mvn package</code></li>
+<li>安装jar包到maven仓库： <code>mvn install</code></li>
+<li>跳过测试： <code>mvn clean -Dmaven.test.skip=true</code></li>
+<li>导出依赖包： <code>mvn dependency:copy-dependencies -DoutputDirectory=lib</code></li>
+<li>依赖检查: <code>mvn dependency:tree</code></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/21/Maven指令/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/09/01/Linux类库链接/">
+                Linux类库链接
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-09-01
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/链接/">链接</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/09/01/Linux类库链接/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/09/01/Linux类库链接/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="tcl">tcl</h2><p><a href="http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz">http://downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz</a></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget <span class="string">http:</span><span class="comment">//downloads.sourceforge.net/tcl/tcl8.6.1-src.tar.gz </span>sudo tar xzvf tcl8<span class="number">.6</span><span class="number">.1</span>-src.tar.gz  -C <span class="regexp">/usr/</span>local<span class="regexp">/cd  /</span>usr<span class="regexp">/local/</span>tcl8<span class="number">.6</span><span class="number">.1</span><span class="regexp">/unix/</span>sudo ./configuresudo makesudo make install</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/09/01/Linux类库链接/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/10/Mac下安装memcached/">
+                Mac下安装memcached
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-08-10
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/NoSQL-缓存/">NoSQL(缓存)</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/10/Mac下安装memcached/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/10/Mac下安装memcached/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="安装libevent(memcached的依赖库)">安装libevent(memcached的依赖库)</h2><ul>
+<li><a href="https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz">下载</a>libevent源码</li>
+<li>解压<code>tar -xzf libevent-2.0.21-stable.tar.gz</code></li>
+<li><code>cd libevent-2.0.21-stable</code></li>
+<li><code>sudo ./configure --prefix=/usr</code></li>
+<li><code>sudo make</code></li>
+<li><code>sudo make install</code></li>
+</ul>
+<h2 id="安装memcached">安装memcached</h2><ul>
+<li><a href="http://www.memcached.org/files/memcached-1.4.20.tar.gz">下载</a>memcached源码</li>
+<li>解压<code>memcached-1.4.20</code></li>
+<li><code>cd memcached-1.4.20</code></li>
+<li><code>sudo ./configure --prefix=/usr</code></li>
+<li><code>sudo make</code></li>
+<li><code>sudo make install</code></li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/08/10/Mac下安装memcached/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/10/Mac下安装phpRedisAdmin/">
+                Mac下安装phpRedisAdmin
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-08-10
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/10/Mac下安装phpRedisAdmin/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/10/Mac下安装phpRedisAdmin/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p>phpRedisAdmin是Redis的一个Web控制台，安装流程如下：</p>
+<h2 id="安装phpRedis模块">安装phpRedis模块</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github<span class="class">.com</span>:nicolasff/phpredis<span class="class">.git</span></span><br><span class="line">cd phpredis</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h2 id="配置apache，启用php模块">配置apache，启用php模块</h2><ul>
+<li><code>vim /etc/apache2/httpd.conf</code></li>
+<li>找到<code>#LoadModule php5_module libexec/apache2/libphp5.so</code>,将<code>#</code>删除</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/08/10/Mac下安装phpRedisAdmin/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+  </div>
+
+  
+  <div class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">&raquo;</a>
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

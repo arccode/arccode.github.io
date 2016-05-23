@@ -1,0 +1,1245 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/08/07/Mac下安装redis/">
+                Mac下安装redis
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-08-07
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/NoSQL-缓存/">NoSQL(缓存)</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/08/07/Mac下安装redis/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/08/07/Mac下安装redis/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="下载Redis">下载Redis</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~<span class="regexp">/ProgramFiles</span><br><span class="line">curl -O http:/</span><span class="regexp">/download.redis.io/releases</span><span class="regexp">/redis-2.8.13.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h2 id="解压、编译">解压、编译</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 解压</span></span><br><span class="line">tar -xzf redis-<span class="number">2.8</span><span class="number">.13</span></span><br><span class="line"><span class="preprocessor"># 重命名</span></span><br><span class="line">mv redis-<span class="number">2.8</span><span class="number">.13</span> redis</span><br><span class="line">cd redis</span><br><span class="line">sudo make</span><br><span class="line"><span class="preprocessor"># 测试</span></span><br><span class="line">sudo make test</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/08/07/Mac下安装redis/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/23/Mac终端乱码/">
+                Mac终端乱码
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-23
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/23/Mac终端乱码/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/23/Mac终端乱码/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p>Android的开发环境配置完毕后，回忆了下以前开发Android的流程</p>
+<ol>
+<li>新建Hello World项目</li>
+<li>使用Eclipse运行项目，自动启动模拟器，一切正常</li>
+</ol>
+<p>之后想把apk包导出到本地</p>
+<ol>
+<li>在终端创建keystore</li>
+<li>利用Android Tool导出apk</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/23/Mac终端乱码/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/23/Mac安装Android开发环境/">
+                Mac安装Android开发环境
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-23
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/23/Mac安装Android开发环境/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/23/Mac安装Android开发环境/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="准备">准备</h2><ol>
+<li>安装JDK</li>
+<li>下载<a href="http://www.eclipse.org/downloads/">Eclipse Standard 4.4</a>(<a href="http://mirrors.hustunique.com/eclipse/technology/epp/downloads/release/luna/R/eclipse-java-luna-R-macosx-cocoa-x86_64.tar.gz">直接下载</a>),将压缩包解压到文件目录<code>path/to/eclipse</code></li>
+<li>下载<a href="https://developer.android.com/sdk/index.html">Android SDK Tools</a>(<a href="http://dl.google.com/android/android-sdk_r23.0.2-macosx.zip">直接下载</a>),将压缩包解压到文件目录<code>path/to/android-sdk-macosx</code></li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/23/Mac安装Android开发环境/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/22/Svn基本使用/">
+                Svn基本使用
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-22
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/22/Svn基本使用/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/22/Svn基本使用/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="基本使用">基本使用</h2><h3 id="图标说明">图标说明</h3><ul>
+<li>灰色向右箭头:本地修改过 </li>
+<li>蓝色向左箭头:SVN上修改过 </li>
+<li>灰色向右且中间有个加号的箭头:本地比SVN上多出的文件 </li>
+<li>蓝色向左且中间有个加号的箭头:SVN上比本地多出的文件 </li>
+<li>灰色向右且中间有个减号的箭头:本地删除了,而SVN上未删除的文件 </li>
+<li>蓝色向左且中间有个减号的箭头:SVN上删除了,而本地未删除的文件 </li>
+<li>红色双向箭头:SVN上修改过,本地也修改过的文件 </li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/22/Svn基本使用/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/13/Mac下搭建Hadoop环境/">
+                Mac下搭建Hadoop环境
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/数据挖掘/">数据挖掘</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/13/Mac下搭建Hadoop环境/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/13/Mac下搭建Hadoop环境/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="安装JDK">安装JDK</h2><p>安装JDK，安装成功后在终端中输入<code>java -version</code>，显示如下</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version <span class="string">"1.7.0_51"</span></span><br><span class="line">Java<span class="list">(<span class="keyword">TM</span>)</span> SE Runtime Environment <span class="list">(<span class="keyword">build</span> <span class="number">1.7</span>.<span class="number">0</span>_51-b13)</span></span><br><span class="line">Java HotSpot<span class="list">(<span class="keyword">TM</span>)</span> <span class="number">64</span>-Bit Server VM <span class="list">(<span class="keyword">build</span> <span class="number">24.51</span>-b03, mixed mode)</span></span><br></pre></td></tr></table></figure>
+<h2 id="安装Hadoop">安装Hadoop</h2><p>下载<a href="http://hadoop.apache.org/releases.html#Download">Hadoop</a>,将该文件解压至<code>/usr/local</code>目录下</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/13/Mac下搭建Hadoop环境/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/13/HBase技术介绍/">
+                HBase技术介绍
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/数据挖掘/">数据挖掘</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/13/HBase技术介绍/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/13/HBase技术介绍/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="HBase简介">HBase简介</h2><p>HBase – Hadoop Database，是一个高可靠性、高性能、面向列、可伸缩的分布式存储系统，利用HBase技术可在廉价PC Server上搭建起大规模结构化存储集群。</p>
+<p>HBase是Google Bigtable的开源实现，类似Google Bigtable利用GFS作为其文件存储系统，HBase利用Hadoop HDFS作为其文件存储系统；Google运行MapReduce来处理Bigtable中的海量数据，HBase同样利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用 Chubby作为<br>协同服务，HBase利用Zookeeper作为对应。</p>
+<p><img src="/images/hadoop_ecosystem.jpg" alt=""></p>
+<p>上图描述了Hadoop EcoSystem中的各层系统，其中HBase位于结构化存储层，Hadoop HDFS为HBase提供了高可靠性的底层存储支持，Hadoop MapReduce为HBase提供了高性能的计算能力，Zookeeper为HBase提供了稳定服务和failover机制。</p>
+<p>此外，Pig和Hive还为HBase提供了高层语言支持，使得在HBase上进行数据统计处理变的非常简单。 Sqoop则为HBase提供了方便的RDBMS数据导入功能，使得传统数据库数据向HBase中迁移变的非常方便。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/13/HBase技术介绍/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/13/云计算的别样解释/">
+                云计算的别样解释
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/云计算/">云计算</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/13/云计算的别样解释/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/13/云计算的别样解释/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p><img src="/images/云计算的别样解释.jpeg" alt=""></p>
+<p>技术人员怎么也讲不清楚的云计算，咱们的高级总监曾经就是这样和政府领导普及云计算和智慧城市知识的，却都听懂了：</p>
+<p>你娶了一个老婆，这叫传统IT架构。</p>
+<p>你觉得一个老婆不够，这叫传统企业CIO的困境。</p>
+<p>你又娶了一个老婆，这叫双活数据中心。</p>
+<p>你在外地又娶了一个小老婆，这叫两地三中心容灾。<br>你娶了很多风格气质各异的小老婆，以至于形成了后宫，这叫私有云。你的后宫就叫计算资源池。</p>
+<p>你从后宫里选出懂事有能的管理其他小老婆，这叫私有云管理方案。管事的那个就是HYPERV或VMWARE。</p>
+<p>你不娶小老婆，改成包养很多情人，这叫托管云。 你是穷人，没有钱包养任何人也没钱娶小老婆，你选择去洗浴中心解决问题，这叫面向中小企业的公有云服务。 你在享受公有云服务的同时还得交公粮，这叫中小企业的混合IT架构。</p>
+<p>你是富人，但也喜欢去高级夜总会，这叫面向大企业用户的公有云服务。</p>
+<p>你有钱，同时包养小老婆和情人，还去洗浴中心，这叫混合云。但是在混合云里，最关键的业务还是会谨慎地采用传统IT架构。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/13/云计算的别样解释/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/13/大数据/">
+                大数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/数据挖掘/">数据挖掘</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/13/大数据/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/13/大数据/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p><img src="/images/bigdata.jpg" alt=""></p>
+<h2 id="大数据（Big_Data）">大数据（Big Data）</h2><p>大数据，官方定义是指那些数据量特别大、数据类别特别复杂的数据集，这种数据集无法用传统的数据库进行存储，管理和处理。大数据的主要特点为数据量大（Volume），数据类别复杂（Variety），数据处理速度快（Velocity）和数据真实性高（Veracity），合起来被称为4V。</p>
+<p>大数据中的数据量非常巨大，达到了PB级别。而且这庞大的数据之中，不仅仅包括结构化数据（如数字、符号等数据），还包括非结构化数据（如文本、图像、声音、视频等数据）。这使得大数据的存储，管理和处理很难利用传统的关系型数据库去完成。在大数据之中，有价值的信息往往深藏其中。这就需要对大数据的处理速度要非常快，才能短时间之内就能从大量的复杂数据之中获取到有价值的信息。在大数据的大量复杂的数据之中，通常不仅仅包含真实的数据，一些虚假的数据也混杂其中。这就需要在大数据的处理中将虚假的数据剔除，利用真实的数据来分析得出真实的结果。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/13/大数据/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/12/tar命令详解/">
+                tar命令详解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-12
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/指令/">指令</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/12/tar命令详解/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/12/tar命令详解/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="语法">语法</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tar &#123;-c | -r | -t | -x | -f&#125; &#123;fileName&#125; [fileList]</span><br><span class="line">  </span><br><span class="line">  -<span class="ruby"><span class="symbol">c:</span> 创建一个.tar文件</span><br><span class="line"></span>  -<span class="ruby"><span class="symbol">r:</span> 在.tar中添加额外的文件</span><br><span class="line"></span>  -<span class="ruby"><span class="symbol">t:</span> 显示.tar中的文件列表</span><br><span class="line"></span>  -<span class="ruby"><span class="symbol">x:</span> 提取.tar中的文件到当前目录</span><br><span class="line"></span>  -<span class="ruby"><span class="symbol">f:</span> 指定文件路径</span><br><span class="line"></span>  -<span class="ruby"><span class="symbol">z:</span> 以gzip方式解压当前文件</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/12/tar命令详解/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2014/07/08/Mac下使用IE/">
+                Mac下使用IE
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2014-07-08
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/工具/">工具</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2014/07/08/Mac下使用IE/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2014/07/08/Mac下使用IE/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <p>如何在Mac上使用IE？</p>
+<ol>
+<li><p>点击<a href="https://www.modern.ie/en-us/virtualization-tools#downloads">modern.IE</a>，选择要下载的版本，点击<code>Grab them all with cURL</code>获取下载的URL，例如<br><img src="/images/modern_IE_page.png" alt=""></p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="component">curl -O -L "https://www.modern.ie/vmdownload?platform=mac&amp;virtPlatform=virtualbox&amp;browserOS=IE10-Win8.1&amp;parts=5&amp;filename=VMBuild_20131127/VirtualBox/IE10_Win8/Mac/IE10.Win8.For.MacVirtualBox.part&#123;1<span class="string">.sfx</span>,2<span class="string">.rar</span>,3<span class="string">.rar</span>,4<span class="string">.rar</span>,5<span class="string">.rar&#125;"</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>$ cd ~/Downloads/VisualBox_IE</code>，切换到保存文件的目录；</p>
+</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/07/08/Mac下使用IE/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+  </div>
+
+  
+  <div class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">&raquo;</a>
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

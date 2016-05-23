@@ -1,0 +1,663 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Java,SOA,分布式," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> SOA服务总线设计 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              SOA服务总线设计
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-03
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/03/SOA服务总线设计/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/SOA服务总线设计/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h2 id="背景">背景</h2><p>基于总线的设计,借鉴了计算机内部硬件组成的设计思想（通过总线传输数据）.在分布式系统中,不同子系统之间需要实现相互通信和远程调用,比较直接的方式就是“点对点”的通信方式,但是这样会暴露出一些很明显的问题：系统之间紧密耦合、配置和引用混乱、服务调用关系错综复杂、难以统一管理、异构系统之间存在不兼容等.而基于总线的设计,正是为了解决上述问题.总线则作为中枢系统,提供统一的服务入口,并实现了服务统一管理、服务路由、协议转换、数据格式转换等功能.这样能够将不同系统有效地连接起来,并大大降低了连接数（每个子系统只需要和总线建立连接）和系统间连接拓扑的复杂度.<br><a id="more"></a><br>如图所示：</p>
+<p><img src="/images/arc/SOA_ARC.jpg" alt=""></p>
+<p>基于服务总线的设计,往往需要ESB（Enterprise Service Bus,企业服务总线）产品来充当基础设施.ESB采用了“总线”这样一种模式来管理和简化应用之间的集成拓扑结构,以广为接受的开放标准为基础来支持应用之间在消息、事件和服务的级别上动态的互连互通. ESB是一种在松散耦合的服务和应用之间标准的集成方式.</p>
+<p>在其内部设计和实现中,通常会应用到一些经典的架构模式,例如：Broker模式、消息总线模式、管道过滤器模式、发布订阅模式等.这里,我们将重点介绍这几种核心的架构模式.</p>
+<h3 id="Broker模式">Broker模式</h3><p>Broker可以看作是服务总线中的一部分,通常应用于同步调用的场景（调用服务后阻塞,等待远程服务响应完成后再返回结果）.Broker可以看作是代理、分发,意味着对服务的调用,可以直接通过Broker来完成.在软件架构设计中,向已经存在（引用或者调用）关系的两者中间加入“第三者”是一种常见的解耦方式,显然,Broker也不例外.</p>
+<p>如下图所示：</p>
+<p><img src="/images/arc/SOA_Broker.jpg" alt=""></p>
+<p>为了进一步加深读者对Broker模式的理解,这里通过举例来说明：</p>
+<p>在现实生活中,我们需要租房子（可以看作是一种服务调用）,可以通过几种途径来完成.第一,我们可以先在网上了解,然后跑到目标小区去询问和看房,最后再找房东签合同等；第二,也可以直接找附近的地产中介,说出我们的要求和预算,请中介直接帮我们搞定一切.很明显,第一种方式,需要自己对目标有足够的了解而且还要亲自去找房东签合同（依赖具体,可以看作是紧密耦合）,而第二种方式,仅仅需要告知中介需要什么即可完成租房,甚至都不需要知道哪个小区有房子、房东到底是谁等这些信息（依赖抽象,并通过第三者来实现解耦）.当然,找中介虽然省事,也会产生额外的经济开销.同理,通过Broker来调用服务也可能会产生一定的开销.</p>
+<h3 id="消息总线模式">消息总线模式</h3><p>SOA系统有三种基础组件：消息总线、信息转换/处理引擎和存储库.一般来说,这些组件会集成到ESB中,而在这些基础组件中,消息总线是最重要的.消息总线主要应用于异步通信场景（投递消息后立刻返回结果,而不用等待远程系统返回执行成功）,可以大大提升响应速度和系统吞吐量.当然,消息总线也同时支持同步通信模式.基于消息总线模式的设计中,消息中间件屏蔽了系统间底层通信的细节,是比较典型的（异步）松耦合的架构.</p>
+<p>在企业中,随着业务的逐渐发展,各大系统之间的调用交互变得非常频繁,关系错综复杂.</p>
+<p>想象如果有几十或者上百个系统（在保险、金融领域很常见）,将变得难以维护.通过引入消息中间件,便能有效的解决这些问题.不同系统之间,只需要连接到消息总线,能保证成功投递/接收消息即可.对于消息投递者（生产者）而言,根本不用关心消息的接收者（消费者）到底有哪些,也不用关心消费者接收到消息之后该如何处理.对于接收者（消费者）而言,只需要关注与自己有关的消息,接收到消息后并做出相应的处理即可.</p>
+<p>如下图所示：</p>
+<p><img src="/images/arc/SOA_Message_Bus.jpg" alt=""></p>
+<p>比较典型的应用场景：张三在CRM系统中录入了一条客户签约订单的信息并审核通过后,CRM系统会向消息总线投递一条消息（消息中包含必要信息,例如员工ID,订单编号,产品编号和交易金额等,而CRM系统不用关心有哪些系统会接受到该消息）.员工绩效奖金管理系统订阅了该消息主题,收到消息通知后开始处理（给张三执行加奖金操作）,同时,进销存系统收到消息通知后也会即时地更新商品库存的数量.这样,便实现异构系统之间的松耦合、异步通信.当然,真实场景可能比这里更复杂,但是实现思路上都大同小异.</p>
+<p>在理解了上述实例之后,有必要了解下Java EE中被广泛应用和实现的JMS（Java消息服务）.</p>
+<p>JMS是一种关于消息的规范,业界流行的ActiveMQ则是实现了JMS规范的开源消息总线.</p>
+<p>JMS支持两种模式：发布/订阅模式和队列模式（点对点模式）.其中,发布/订阅模式借鉴了现实生活中的出版社（发布图书）和读者（订阅图书）,消息的消费者（读者）只需要订阅自己感兴趣的消息（图书）即可,消息生产者（出版社）生产（出版）了消费者（读者）感兴趣的新消息（新书）后,会通知消费者（读者）接受处理.在JMS发布/订阅模式中,通常以Topic（主题）来标识消息,是一对多的模式,意味着同一个主题可以同时被多个消费者来订阅和消费.而在JMS 队列模型中,通常以Queue name来标识消息,是一对一的模型,意味着同一条消息只能被一个消费者接收并消费（且只能被消费一次）.在生产者和消费者都是集群的环境中,通常需要将这两种模式结合起来使用,情况会复杂很多,而且需要考虑容错性、负载均衡、消息一致性、消息优先级等复杂的问题.</p>
+<p>业界主流的消息总线（消息中间件）产品,普遍支持消息过滤、自动重试、分布式事务、持久化、消息优先级、消息回溯、（生产者/消费者/中间件自身）集群、故障转移等高级特性.</p>
+<h2 id="总结">总结</h2><p>基于总线架构的主要优势在于：</p>
+<blockquote>
+<p>可扩展性</p>
+</blockquote>
+<p>使用消息架构,可以在不影响现有应用的情况下增加或移除应用.</p>
+<blockquote>
+<p>低复杂度</p>
+</blockquote>
+<p>每个应用只需要和总线通信,只有1个连接点,降低了应用程序集成的复杂度.</p>
+<blockquote>
+<p>灵活性</p>
+</blockquote>
+<p>对于构成复杂处理的应用程序通信组来说,只需要改变配置和控制路由参数就能满足业务逻辑或者需求变更,而不需要更改服务本身.</p>
+<blockquote>
+<p>松耦合</p>
+</blockquote>
+<p>应用程序直接和消息总线通信,不依赖其它应用程序,因此可以替换和修改.</p>
+<blockquote>
+<p>可扩展性</p>
+</blockquote>
+<p>可以把多个应用程序附加到总线上,进行并发处理,达到负载均衡的目的.</p>
+<p>基于总线的模型,可以面向同构和异构系统（跨平台）.当前主要应用于传统企业应用的整合与系统集成中（例如：电信、保险、金融等行业）.由于基于总线的模型是一种集中式的架构,总线自身容易形成性能瓶颈,但可以通过横向扩展, 然后在其上层增加LVS进行负载均衡, 实现高并发,高可用.</p>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/SOA/"> #SOA </a>
+          
+            <a href="/tags/分布式/"> #分布式 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/05/ngrok暴露本地Web应用映射到外网/">ngrok暴露本地Web应用映射到外网</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/03/CAP原理和最终一致性/">CAP原理和最终一致性</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/07/03/SOA服务总线设计/"
+               data-title="SOA服务总线设计" data-url="http://arccode.net/2015/07/03/SOA服务总线设计/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Broker模式"><span class="nav-number">1.1.</span> <span class="nav-text">Broker模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息总线模式"><span class="nav-number">1.2.</span> <span class="nav-text">消息总线模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

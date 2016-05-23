@@ -1,0 +1,717 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+  <meta name="keywords" content="Java,Javascript,Rest," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> 前后端完全分离初探 // Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              前后端完全分离初探
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-04-08
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/04/08/前后端完全分离初探/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/08/前后端完全分离初探/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        <h2 id="核心思路">核心思路</h2><p>后端负责业务逻辑处理, 前端负责展示逻辑的处理.</p>
+<h2 id="背景">背景</h2><ul>
+<li><p>2013年3月,首次接触了<a href="http://underscorejs.org/" target="_blank" rel="external">underscore.js</a>这个区区45k大小的js库, 在使用其提供的简单模板完成表格异步分页后,从此我开始慢慢践行前后端完全分离的架构.</p>
+</li>
+<li><p>2013年7月,我接触到了REST这种重用HTTP应用协议的架构, 更坚定了我践行前后端分离的决心.</p>
+</li>
+<li><p>2014年3月,国内刮起了nodeJS的风暴, 此时我采用国外的一个开源项目<a href="http://mean.io/" target="_blank" rel="external">MEAN</a>开发了一套完整的CMS系统, 此次开发学习到了API接口如何标准化, API具体的设计参考了<a href="https://developer.github.com/v3/" target="_blank" rel="external">github API</a>, <a href="https://instagram.com/developer/endpoints/" target="_blank" rel="external">Instagram API</a>.</p>
+</li>
+<li><p>2015年1月, 公司开发新产品, 需要新开发一套支持平台及数据下发平台, 在该产品中我主要参与API的设计, 并主导开发支撑平台, 下面我就介绍下这套支撑平台.</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="工具">工具</h2><p>工欲善其事, 必先利其器, 先介绍下自己使用的工具</p>
+<p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">IntelliJ IDEA</a></p>
+<p>强大的Java集成开发工具, 没有之一.</p>
+<p><a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="external">Webstorm</a></p>
+<p>强大的HTML,CSS,Javascript集成开发工具, 没有之一.</p>
+<p><a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime</a></p>
+<p>强大的文本编辑工具, 目前我主要用于临时文件查看, 临时json数据格式化查看, 集成了plugin后, 它的功能会吓到人.</p>
+<p><a href="http://www.navicat.com/" target="_blank" rel="external">Navicat</a></p>
+<p>小巧强大的关系数据库建模工具, 相当易用.</p>
+<p><a href="https://www.zennaware.com/cornerstone/index.php" target="_blank" rel="external">Cornerstone</a></p>
+<p>强大的版本控制客户端.</p>
+<p><a href="http://25.io/mou/" target="_blank" rel="external">Mou</a></p>
+<p>一款简洁强大的MarkDown可视化编辑工具.</p>
+<p><a href="http://www.emtec.com/zoc/" target="_blank" rel="external">Zoc6</a></p>
+<p>一款强大的Linux SSH客户端工具.</p>
+<p><a href="https://panic.com/transmit/" target="_blank" rel="external">Transmit</a></p>
+<p>一款强大的Linux SFTP客户端可视化工具.</p>
+<h2 id="代理">代理</h2><p><a href="https://www.cloudtizi.com/" target="_blank" rel="external">云梯</a></p>
+<p>强大的VPN, 连接稳定, 速度快, 价格实惠, 可做全局代理, 包括terminal.</p>
+<h2 id="项目">项目</h2><h3 id="目的">目的</h3><ul>
+<li>提高使用者的工作效率</li>
+<li>提高开发人员的开发效率</li>
+</ul>
+<h3 id="前端类库">前端类库</h3><p><a href="http://vuejs.org/" target="_blank" rel="external">vue.js</a></p>
+<p>一个用于创建web交互界面的库, 主要用于数据双向绑定.</p>
+<p><a href="http://visionmedia.github.io/superagent/" target="_blank" rel="external">superagent.js</a></p>
+<p>一个非常方便的客户端请求代理模块，可方便的使用get,post,put,delete,head动词, 异步回调中封装了http状态码和业务数据等等.</p>
+<p><a href="http://www.dropzonejs.com/" target="_blank" rel="external">dropzone.js</a></p>
+<p>一个强大的文件上传库, 可获取文件mime, 文件大小等; 针对图片可生成缩略图, 获取图片宽度,高度.</p>
+<p><a href="http://backgridjs.com/" target="_blank" rel="external">backgrid.js</a></p>
+<p>一个强大的表格组件.</p>
+<p><a href="https://github.com/flatiron/director" target="_blank" rel="external">director.js</a></p>
+<p>一个强大的前端路由库, 通过<code>#</code>符号进行路径组织, 结合<code>vue</code>的<code>component</code>可进行单页的局部模块刷新.</p>
+<h3 id="后端类库">后端类库</h3><p><a href="http://spring.io/guides/tutorials/bookmarks/" target="_blank" rel="external">spring hateoas</a></p>
+<p>spring 超文本驱动库, 可根据需求返回不同的httpStatus及links.</p>
+<p><a href="http://projects.spring.io/spring-framework/" target="_blank" rel="external">spring framework</a></p>
+<p>对架构进行分层, 目前分三层</p>
+<ul>
+<li>web接入层: 提供API接口,对前端传过来的数据进行校验, 校验未通过的话使用spring hateoas包装返回错误消息, 校验通过的话调用业务逻辑层</li>
+<li>业务逻辑层: 该层主要处理上层传进来的数据, 调用数据访问层进行数据持久化, 该层具有强大的扩展性;<ul>
+<li>对于高并发写<code>db</code>的操作, 可集成消息队列库(如<a href="http://activemq.apache.org/" target="_blank" rel="external">ActiveMQ</a>)将消息发送至队列, 采用队列依次消费减轻<code>db</code>写负担.</li>
+<li>对于高并发频繁读<code>db</code>的操作, 可集成缓存库(如<a href="http://redis.io/" target="_blank" rel="external">redis</a>), 把读<code>db</code>的操作改为先读缓存, 未命中才去读<code>db</code>, 这样可大大减轻数据库读负担.</li>
+<li>在该层上还可以使用<code>spring AOP</code>对业务进行事务控制及日志记录.</li>
+</ul>
+</li>
+<li>数据访问层: 该层只做一件事, 对数据库中的表记录进行增删改查, 不进行业务逻辑判断.</li>
+</ul>
+<p><a href="http://mybatis.github.io/mybatis-3/zh/" target="_blank" rel="external">mybatis</a></p>
+<p>一个半自动ORM(对象关系映射库)库, 简单灵活, 使用原生sql, 可完成较复杂的查询.</p>
+<p><a href="http://mybatis.github.io/generator/running/runningWithMaven.html" target="_blank" rel="external">mybatis-generator-maven-plugin</a></p>
+<p>mybatis插件, 可根据数据库中的表生成JavaBean,Dao接口,Dao的xml文件, 本人修改了部分源码, 可在JavaBean中自动添加注释, 详见另一篇博文<a href="http://arccode.net/2015/02/07/MyBatis-Generator%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">MyBatis-Generator最佳实践</a>.</p>
+<p><a href="http://projects.spring.io/spring-security/" target="_blank" rel="external">spring security</a></p>
+<p>完成用户的认证和授权.</p>
+<p><a href="https://code.google.com/p/thumbnailator/" target="_blank" rel="external">thumbnailator</a>(注: 需翻墙)</p>
+<p>一个Java端的图片处理库, 可完成图片压缩, 裁剪, 水印等功能.</p>
+<h3 id="实战">实战</h3><p>如何提高使用者的工作效率?</p>
+<ul>
+<li>使用者看见就知道怎么使用</li>
+<li>为使用者自动完成部分可推导的表单填写</li>
+<li>拥有尽可能全的提示</li>
+</ul>
+<p>如何提高开发人员的开发效率?</p>
+<ul>
+<li>技术选型时权衡考虑学习曲线与其提供的功能</li>
+<li>设计一套通用的可扩展的架构</li>
+<li>对常用操作及模块进行封装.</li>
+</ul>
+<p>目前, 后端中将数据访问层和业务逻辑层中常用的方法封装成了泛型接口, 并使用抽象类来实现最基础的逻辑, 开发人员如果觉得指定方法无法满足需求, 可重写指定方法或使用新方法. 具体封装如下:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> GenericDao : 封装通用dao操作, 服务于GenericService</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author http://arccode.net</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@since 2014-12-03</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public interface GenericDao<span class="variable">&lt;Model, PK&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  插入</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    int insertSelective(Model model);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  删除</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param id</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    int deleteByPrimaryKey(PK id);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  更新</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    int updateByPrimaryKeySelective(Model model);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span>  查询单条记录</span><br><span class="line">     <span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param id</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    Model selectByPrimaryKey(PK id);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 分页查询</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param page</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    List selectAndPage(Page<span class="variable">&lt;Model&gt;</span> page, Model model);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> GenericService : 所有自定义Service的顶级接口,封装常用的增删查改操作</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> Model : 代表数据库中的表映射的Java对象类型</span><br><span class="line"> <span class="keyword">*</span> PK :代表对象的主键类型</span><br><span class="line"> <span class="keyword">*</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@author http://arccode.net</span></span><br><span class="line"> <span class="keyword">*</span> <span class="comment">@since 2014-12-03</span></span><br><span class="line"> <span class="keyword">*</span>/</span><br><span class="line">public interface GenericService<span class="variable">&lt;Model, PK&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 分页获取集合, 带过滤功能</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param page 分页对象</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model 分页条件, eg: model.name = "zhangsan", 对应sql语句为where name like %zhangsan%</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    List getModels(Page<span class="variable">&lt;Model&gt;</span> page, Model model);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 新增</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    Integer addModel(Model model);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 删除</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param id</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    Integer removeModelById(PK id);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 修改</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param model</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    Integer modifyModelById(Model model);</span><br><span class="line"></span><br><span class="line">    /<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line">     <span class="keyword">*</span> 根据主键id获取单条记录详情</span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@param id</span></span><br><span class="line">     <span class="keyword">*</span> <span class="comment">@return</span></span><br><span class="line">     <span class="keyword">*</span>/</span><br><span class="line">    Model getModelById(PK id);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * GenericServiceSupport : 通用接口的实现类</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> http://arccode.net</span><br><span class="line"> * <span class="doctag">@since</span> 2014-12-03</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericServiceSupport</span>&lt;<span class="title">Model</span>, <span class="title">PK</span>&gt;  <span class="keyword">implements</span> <span class="title">GenericService</span>&lt;<span class="title">Model</span>, <span class="title">PK</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 定义成抽象方法,由子类实现,完成dao的注入</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> GenericDao&lt;Model, PK&gt; getDao();</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">getModels</span><span class="params">(Page&lt;Model&gt; page, Model model)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDao().selectAndPage(page, model);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">addModel</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDao().insertSelective(model);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">removeModelById</span><span class="params">(PK id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDao().deleteByPrimaryKey(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">modifyModelById</span><span class="params">(Model model)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDao().updateByPrimaryKeySelective(model);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Model <span class="title">getModelById</span><span class="params">(PK id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getDao().selectByPrimaryKey(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>熟练使用该模式, 开发一套业务逻辑的增删改查, 那速度是相当快.</p>
+<p>针对前段也做了一些组件式的封装, 表格采用<code>backgrid.js</code>完成展示及分页操作, 只需要在html文件指定位置写入两个带id的html元素(一个用于展示表格, 一个用于分页), 之后copy写好的js模板, 在js中修改属性便可快速完成表格异步分页.</p>
+<p>接下来将陆续发布实战干货.</p>
+<h2 id="本系列文章">本系列文章</h2><ul>
+<li><a href="http://arccode.net/2015/04/08/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E5%88%9D%E6%8E%A2/">前后端完全分离初探</a></li>
+<li><a href="http://arccode.net/2015/04/18/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%AE%8C%E5%85%A8%E5%88%86%E7%A6%BB%E4%B9%8BAPI%E8%AE%BE%E8%AE%A1/">前后端完全分离之API设计</a></li>
+<li>前后端完全分离之安全认证与授权-上</li>
+<li>前后端完全分离之安全认证与授权-下</li>
+<li>前后端完全分离之前端模块化开发</li>
+<li>前后端完全分离之前端路由系统</li>
+<li>前后端完全分离之后端面向服务的模块化开发</li>
+</ul>
+
+      
+    </div>
+
+    
+    <!-- donate -->
+    <div class="donate fmt">
+      <h2>打赏</h2>
+      <div style="margin-bottom: 10px;">Donate me ! 欣赏此文? 求鼓励, 求支持!</div>
+      <a href="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" style="margin-top: 5px;">
+        <img src="/images/pay/alipay_donate_qr_72.png" title="支付宝打赏" height="175px" width="175px">
+        <p style="text-align:center;">支付宝打赏</p>
+      </a>
+    </div>
+    
+
+
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/Javascript/"> #Javascript </a>
+          
+            <a href="/tags/Rest/"> #Rest </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/14/SpringSecurity-AntPathMatcher-Rest-Match/">SpringSecurity-AntPathMatcher-Rest-Match</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/03/06/冒泡型事件和捕获型事件/">冒泡型事件和捕获型事件</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/04/08/前后端完全分离初探/"
+               data-title="前后端完全分离初探" data-url="http://arccode.net/2015/04/08/前后端完全分离初探/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心思路"><span class="nav-number">1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">3.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理"><span class="nav-number">4.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目"><span class="nav-number">5.</span> <span class="nav-text">项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">5.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端类库"><span class="nav-number">5.2.</span> <span class="nav-text">前端类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端类库"><span class="nav-number">5.3.</span> <span class="nav-text">后端类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实战"><span class="nav-number">5.4.</span> <span class="nav-text">实战</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本系列文章"><span class="nav-number">6.</span> <span class="nav-text">本系列文章</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>

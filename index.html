@@ -1,0 +1,1227 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5"/>
+
+
+    <meta name="description" content="积累技术, 努力工作, 坚持学习, 认真生活." />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Arccode's blog" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    analytics: {
+      google: 'UA-52770645-1'
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cc881a935ecd2c2a0fe30651210e7117";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Arccode's blog </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column 
+   page-home 
+">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Arccode's blog</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+  <div id="posts" class="posts-expand">
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2016/05/02/微信支付SDK-两行代码解决支付/">
+                微信支付SDK-两行代码解决支付
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2016-05-02
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/SDK/">SDK</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/05/02/微信支付SDK-两行代码解决支付/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/02/微信支付SDK-两行代码解决支付/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>让使用微信支付的朋友最快速度接入微信支付.</p>
+<h2 id="核心">核心</h2><p>两行代码解决微信支付提供的各种服务, 开箱即用, 可扩展性超强(只需根据服务的上下行协议定义协议类后, 放入工厂即可获取调用结果).</p>
+<h2 id="架构图">架构图</h2><p><img src="/images/wx-pay-sdk.jpg" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/02/微信支付SDK-两行代码解决支付/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2016/03/06/免费跳过视频网站的广告-通杀主流平台/">
+                免费跳过视频网站的广告--通杀主流平台
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2016-03-06
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/社会工程学/">社会工程学</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/06/免费跳过视频网站的广告-通杀主流平台/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/06/免费跳过视频网站的广告-通杀主流平台/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>看了腾讯动漫各位导演的演讲, 好有感触, 特意找了一部提及的动漫(妖怪名单)进行观看, 总共18集; 看了2集觉得不错, 想直接看完, 但每次都有60s广告时间, 烦人. 速度浏览了下该站点前端代码, 哈哈, 很好解决这问题, 接下来详细讲解各种手法.</p>
+<p>以下手法经测试, 可以<code>秒杀</code>目前流行的各大视频平台.</p>
+<h2 id="工具">工具</h2><p>chrome浏览器</p>
+<h2 id="手法分类">手法分类</h2><p>针对不同的用户群体, 给出相适应的<code>避广告</code>手法. </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/06/免费跳过视频网站的广告-通杀主流平台/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/10/27/微信扫码登录场景实现及延伸/">
+                微信扫码登录场景实现及延伸
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-10-27
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Java/">Java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/10/27/微信扫码登录场景实现及延伸/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/微信扫码登录场景实现及延伸/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>用过微信网页版的人应该都清楚网页登陆的流程,大致描述一下这个过程: </p>
+<ol>
+<li>打开网页版登陆<a href="https://wx.qq.com/">链接</a></li>
+<li>页面会显示一个二维码</li>
+<li>用微信客户端扫描二维码,让用户确认登陆网页版</li>
+<li>如果确认登陆,网页版会自动进入聊天界面</li>
+</ol>
+<p>这个过程的交互方式和一般的WEB应用不太一样,<code>步骤4</code>网页自动跳转,明显是由服务端主动推送了内容给网页端,网页端收到跳转确认后才触发的,这里就引出了今天要讨论的问题：<code>服务端推送技术</code>.服务端推送又称为Comet,服务端异步处理等.很早以前就出现了,但一直没有一个统一的标准,存在着不少Comet技术框架,各个Web容器也各自实现了自己的Comet支持.最近公司的产品也出现了和微信网页版登陆类似的场景,需要用到Comet技术,我简单的研究了下,写下来记录一下.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/27/微信扫码登录场景实现及延伸/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/10/27/使用jconsole监控JVM运行状况/">
+                使用jconsole监控JVM运行状况
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-10-27
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/Java/">Java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/10/27/使用jconsole监控JVM运行状况/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/使用jconsole监控JVM运行状况/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>最近有个服务运行几天就会莫名其妙的无法调用, 但使用<code>jps -m|grep 服务名称</code>指令查看后发现服务进程仍然存在; 因此怀疑可能是有内存泄漏导致进程编程”僵尸”进程.</p>
+<p>为此决定使用jconsole来对指定进程的JVM进行监控, 下面将详细介绍如何配置Linux JRE来监控内存.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/27/使用jconsole监控JVM运行状况/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/07/Linux下MySQL-5-5的修改字符集编码为UTF8/">
+                Linux下MySQL_5.5的修改字符集编码为UTF8
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-07
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/DB/">DB</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/07/Linux下MySQL-5-5的修改字符集编码为UTF8/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/07/Linux下MySQL-5-5的修改字符集编码为UTF8/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>mysql安装后, 插入的数据位乱码, 经检查为默认字符集是<code>latin1</code>, 而程序使用<code>UTF-8</code>.</p>
+<h2 id="检查字符集">检查字符集</h2><p>1.使用ssh终端连接mysql</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -u root -p</span><br></pre></td></tr></table></figure>
+<p>2.查看字符集</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'character%'</span>;</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/07/Linux下MySQL-5-5的修改字符集编码为UTF8/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/05/ngrok暴露本地Web应用映射到外网/">
+                ngrok暴露本地Web应用映射到外网
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-05
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/代理/">代理</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/05/ngrok暴露本地Web应用映射到外网/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/05/ngrok暴露本地Web应用映射到外网/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>开发第三方支付, 需要接收第三方回调(即在外网上暴露api), 发现<a href="https://ngrok.com/">ngrok</a>可以完成该业务, 下面具体介绍其使用.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/05/ngrok暴露本地Web应用映射到外网/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/03/SOA服务总线设计/">
+                SOA服务总线设计
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-03
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/03/SOA服务总线设计/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/SOA服务总线设计/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>基于总线的设计,借鉴了计算机内部硬件组成的设计思想（通过总线传输数据）.在分布式系统中,不同子系统之间需要实现相互通信和远程调用,比较直接的方式就是“点对点”的通信方式,但是这样会暴露出一些很明显的问题：系统之间紧密耦合、配置和引用混乱、服务调用关系错综复杂、难以统一管理、异构系统之间存在不兼容等.而基于总线的设计,正是为了解决上述问题.总线则作为中枢系统,提供统一的服务入口,并实现了服务统一管理、服务路由、协议转换、数据格式转换等功能.这样能够将不同系统有效地连接起来,并大大降低了连接数（每个子系统只需要和总线建立连接）和系统间连接拓扑的复杂度.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/SOA服务总线设计/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/03/CAP原理和最终一致性/">
+                CAP原理和最终一致性
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-03
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/03/CAP原理和最终一致性/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/CAP原理和最终一致性/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>在足球比赛里,一个球员在一场比赛中进三个球,称之为帽子戏法(Hat-trick).在分布式数据系统中,也有一个帽子原理(CAP Theorem),不过此帽子非彼帽子.CAP原理中,有三个要素：</p>
+<ul>
+<li>一致性(Consistency)</li>
+<li>可用性(Availability)</li>
+<li>分区容忍性(Partition tolerance)</li>
+</ul>
+<p>CAP原理指的是,这三个要素最多只能同时实现两点,不可能三者兼顾.因此在进行分布式架构设计时,必须做出取舍.而对于分布式数据系统,分区容忍性是基本要求,否则就失去了价值.因此设计分布式数据系统,就是在一致性和可用性之间取一个平衡.对于大多数web应用,其实并不需要强一致性,因此牺牲一致性而换取高可用性,是目前多数分布式数据库产品的方向.</p>
+<p>当然,牺牲一致性,并不是完全不管数据的一致性,否则数据是混乱的,那么系统可用性再高分布式再好也没有了价值.牺牲一致性,只是不再要求关系型数据库中的强一致性,而是只要系统能达到最终一致性即可,考虑到客户体验,这个最终一致的时间窗口,要尽可能的对用户透明,也就是需要保障“用户感知到的一致性”.通常是通过数据的多份异步复制来实现系统的高可用和数据的最终一致性的,“用户感知到的一致性”的时间窗口则取决于数据复制到一致状态的时间.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/CAP原理和最终一致性/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/07/03/SOA初探/">
+                SOA初探
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-03
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/架构/">架构</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/03/SOA初探/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/03/SOA初探/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>曾今SOA的概念犹如今日“云计算、大数据”一样,被炒得火热,不少企业便纷纷响应,并宣称会拥抱和实施SOA.而事实上,业界出现了两种极端：一种是由于各类文章和书籍关于SOA的描述往往太过抽象,再加上各大厂商的呼吁,使得SOA往往显得“高大上”,令不少企业和架构师们望而却步.第二种恰好相反,有部分人却认为SOA无非是“新瓶装旧酒”.</p>
+<p>个人理解,SOA在宏观上确实太复杂,因为它涉及到的不仅仅是技术和架构本身.而从技术的视角来看,并非难以落地.</p>
+<p>SOA全称“面向服务架构”,它提供的是一种架构风格和理念,而并非是一种技术或者产品.并不是说项目中用了WebService、WCF、Hessian、RMI之类的就是SOA了.</p>
+<p>通俗点来讲,SOA提倡将不同应用程序的业务功能封装成“服务”并宿主起来,通常以接口和契约的形式暴露并提供给外界应用访问（通过交换消息）,达到不同系统可重用的目的.</p>
+<p>流行的WebService等可以看作是实现SOA基础设施的技术方法.当然,实践SOA不仅需要解决服务调用的问题,还包括服务编排、服务治理、服务路由、服务监控等一系列的问题.在大型分布式系统中,SOA被广泛实践,但是在不同的应用场景中,设计方法也大不相同.</p>
+<p>SOA是一个组件模型,它能将不同的服务通过定义良好的接口和契约联系起来.服务是SOA的基石,在开始服务设计和SOA实践之前,有必要先了解服务的概念以及服务的常见特性.</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/03/SOA初探/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/06/02/理解RMI中的Stub/">
+                理解RMI中的Stub
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-02
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/设计模式/">设计模式</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/02/理解RMI中的Stub/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/02/理解RMI中的Stub/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body fmt">
+
+      
+      
+
+      
+        
+          <h2 id="背景">背景</h2><p>以前编程时也碰到过<code>Stub</code>这个名词, 但没关注, 今天研究<code>Paypal Rest API</code>又碰到到这个词, 决定探查个究竟.</p>
+<h2 id="通俗解释">通俗解释</h2><p>Stub 跟 Proxy 是一对,俗称<code>代理-桩</code>,一般用在远程方法调用.</p>
+<p>Proxy 相当于是拿在手里的遥控器,而 Stub 相当于长在电视机里的遥控接收器,它们有着一一对应的接口方法.</p>
+<p>Proxy 的接口供客户端程序调用,然后它内部会把信息包装好,以某种方式(比如 RMI)传递给 Stub,而后者通过对应的接口作用于服务端系统,从而完成了<code>远程调用</code>.</p>
+
+        
+      
+    </div>
+
+    
+
+
+
+    <div class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+  </div>
+
+  
+  <div class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">&raquo;</a>
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/avatar.jpg" alt="arccode" />
+          <p class="site-author-name">arccode</p>
+        </div>
+        <p class="site-description motion-element">积累技术, 努力工作, 坚持学习, 认真生活.</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">66</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="http://arccode.net" target="_blank">Blog</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/arccode" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/tianzhisoftware" target="_blank">Weibo</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://segmentfault.com/u/arccode" target="_blank">Segmentfault</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://wocoding.com" target="_blank">WoCoding</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+      </div>
+
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">arccode</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"arccode"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  <script type="text/javascript" src="/js/analytics_google-analytics.js?v=0.4.5"></script>
+
+
+</body>
+</html>
